@@ -1,0 +1,45 @@
+// Place all the styles related to the Restaurants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+	font-family: "Raleway", arial, sans-serif;
+	font-size: 12px;
+	width: 100%;
+	background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #00A3EF 100%);
+	color: #fff;
+}
+
+h1 {
+	font-family: "Raleway", arial, sans-serif;
+	font-size: 3em;
+	font-weight: bold;
+	color: #fff;
+}
+
+.center {
+	text-align: center;
+}
+
+.new_form {
+	margin: 0 auto;
+	width: 60%;
+}
+
+.price_label {
+	padding-left: 40px;
+}
+
+.float_right {
+	float: right;
+}
+
+.submit {
+	background-color: blue;
+	color: white;
+	font-family: "Raleway", arial, sans-serif;
+	border: 0;
+	width: 250px;
+	height: 50px;
+	font-size: 1.5em;
+}
