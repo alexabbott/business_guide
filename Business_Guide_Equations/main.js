@@ -62,4 +62,7 @@ rate = function(lat,lng,cost,category){
 	}
 	return rating;
 };
-output = (rate(34.019021,-118.496379,1,coffeeShop))
+
+/*PROGRAM*/
+output = (rate(34.019021,-118.496379,2,coffeeShop));
+document.getElementsByClassName('rating')[0].innerHTML = output;
