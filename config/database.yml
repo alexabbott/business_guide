@@ -19,7 +19,7 @@ development:
   encoding: unicode
   database: biz_app_development
   pool: 5
-  username: rails
+  username: postgres
   password: rails
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -48,13 +48,13 @@ test:
   encoding: unicode
   database: biz_app_test
   pool: 5
-  username: 
-  password:
+  username: postgres
+  password: rails
 
 production:
   adapter: postgresql
   encoding: unicode
   database: biz_app_production
   pool: 5
-  username: 
-  password:
+  username: postgres
+  password: rails

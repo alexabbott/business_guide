@@ -1,8 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
-  response = HTTParty.get('https://api.stackexchange.com/2.2/questions?site=stackoverflow')
-
   # GET /restaurants
   # GET /restaurants.json
   def index
@@ -30,7 +28,7 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
+        format.html {  }
         format.json { render action: 'show', status: :created, location: @restaurant }
       else
         format.html { render action: 'new' }

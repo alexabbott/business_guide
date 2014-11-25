@@ -25,6 +25,8 @@
             var myHtml = address.address;
             map.openInfoWindow(latlng, myHtml);
             document.getElementById('coo').value = myHtml;
+            document.getElementById('lat').value = latlng.lat();
+            document.getElementById('lng').value = latlng.lng();
           }
         });
       }
@@ -61,8 +63,10 @@
     </span>
   <br><br>
   <div class="actions center">
-    <%= f.submit "Check Success Rating", :class=>"submit" %>
+    <%= f.submit "Check Success Rating", :class=>"submit get-rating" %>
   </div>
+  <%= f.hidden_field :latitude, id: 'lat' %>
+  <%= f.hidden_field :longitude, id: 'lng' %>
 <% end %>
 </div>
 
