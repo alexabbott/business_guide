@@ -1,8 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
-  response = HTTParty.get('https://api.stackexchange.com/2.2/questions?site=stackoverflow')
-
   # GET /restaurants
   # GET /restaurants.json
   def index
@@ -12,11 +10,15 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+    @user = User.new
+    @is_login = true
   end
 
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @user = User.new
+    @is_login = true
   end
 
   # GET /restaurants/1/edit

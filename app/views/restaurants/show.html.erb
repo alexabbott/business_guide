@@ -26,7 +26,7 @@
               var marker = new google.maps.Marker({
                   position: latlng,
                   map: map,
-                  icon: 'http://i.stack.imgur.com/uFZxX.png'
+                  icon: '../../assets/marker1.png'
               });
               
               var infowindow = new google.maps.InfoWindow({
@@ -48,29 +48,64 @@
   
   </script>
 
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>
+ -->
 
-<p class="rating"></p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @restaurant.location %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @restaurant.category %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @restaurant.price %>
-</p>
+    <div class="sign_up">
+      
+      <% if current_user %>
 
 
-<div id="map-canvas"></div>
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
 
+<div id="results">
+
+  <div class="white_text">
+
+  <h2>PREDICTION:</h2>
+
+    <p class="rating"></p>
+
+    <h2>RECOMMENDATIONS:</h2>
+
+
+<!--     <span class="blue_text">LOCATION:</span>
+    <%= @restaurant.location %><br> 
+
+    <span class="blue_text">CATEGORY:</span>
+    <%= @restaurant.category %><br> 
+
+    <span class="blue_text">PRICE:</span>
+    <%= @restaurant.price %> -->
+
+  </div>
+
+
+  <br><br><div id="map-canvas"></div>
+
+</div>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
