@@ -10,7 +10,7 @@
         map.addControl(new GSmallZoomControl());
         geocoder = new GClientGeocoder();
         GEvent.addListener(map, "click", clicked);
-        map.openInfoWindow(map.getCenter(), "Click&nbsp;map");
+        map.openInfoWindow(map.getCenter());
       }
     }
 
@@ -23,6 +23,7 @@
           else {
             address = addresses.Placemark[0];
             var myHtml = address.address;
+            console.log(address);
             map.openInfoWindow(latlng, myHtml);
             document.getElementById('coo').value = myHtml;
             document.getElementById('lat').value = latlng.lat();
@@ -34,12 +35,45 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
     google.maps.event.addDomListener(window, 'page:load', initialize);
+
 </script>
+<!-- <nav class="animated fadeIn">SIGN IN <span class="divider">|</span> SIGNUP</nav> -->
 
-<h1 class="center">PREDICTIVE</h1>
-<h3 class="center">YOUR GO-TO GUIDE FOR LOCAL BUSINESS SUCCESS PREDICTIONS</h3>
+    <div class="sign_up">
+      
+      <% if current_user %>
 
-<div class="new_form">
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+<h3 class="center sub_title animated fadeInDown" id="sub_title">YOUR GO-TO GUIDE FOR LOCAL BUSINESS SUCCESS PREDICTIONS</h3>
+
+<a class="link_text animated fadeIn"><div id="landing_button" class="animated fadeInUp" onclick="displayForm()">Get Your Prediction</div></a>
+
+<div id="form_map" class="animated fadeInUp">
+  
+<div class="new_form animated fadeInUp">
 <%= form_for(@restaurant) do |f| %>
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
@@ -70,6 +104,13 @@
 <% end %>
 </div>
 
-<div id="map-canvas"></div>
+<div id="map-canvas" class="animated fadeInUp"></div>
+</div>
 
-<%= link_to 'Back', restaurants_path %>
+<script>
+displayForm = function(){
+      document.getElementById("landing_button").style.display = "none";
+      document.getElementById("sub_title").style.display = "none";
+      document.getElementById("form_map").style.display = 'inline';
+    }
+</script>

@@ -1,0 +1,180 @@
+ <!-- google maps api -->
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
+</script>
+
+ <script type="text/javascript">
+  
+ function initialize() {
+      var map;
+      var elevator;
+      var myOptions = {
+          zoom: 21,
+          center: new google.maps.LatLng(34.0500, -118.2500),
+          mapTypeId: 'terrain',
+          scrollwheel: false
+      };
+      map = new google.maps.Map($('#map-canvas')[0], myOptions);
+
+      var addresses = ['<%= @restaurant.location %>'];
+
+      for (var x = 0; x < addresses.length; x++) {
+          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
+              var p = data.results[0].geometry.location
+              var latlng = new google.maps.LatLng(p.lat, p.lng);
+               
+              var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                  icon: '../../assets/marker1.png'
+              });
+              
+              var infowindow = new google.maps.InfoWindow({
+                content: '<%= @restaurant.location %>'
+              });
+              infowindow.open(map, marker);
+        
+              // google.maps.event.addListener(marker, 'click', function() {
+              //   infowindow.open(map,marker);
+              // });
+
+              map.setCenter(latlng);
+
+          });
+      }
+  };
+  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'page:load', initialize);
+  
+  </script>
+
+<!-- <p id="notice"><%= notice %></p>
+ -->
+
+    <div class="sign_up">
+      
+      <% if current_user %>
+
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+
+<div id="results">
+
+  <div class="white_text">
+
+  <h2>PREDICTION:</h2>
+
+    <p class="rating"></p>
+
+    <h2>RECOMMENDATIONS:</h2>
+
+
+<!--     <span class="blue_text">LOCATION:</span>
+    <%= @restaurant.location %><br> 
+
+    <span class="blue_text">CATEGORY:</span>
+    <%= @restaurant.category %><br> 
+
+    <span class="blue_text">PRICE:</span>
+    <%= @restaurant.price %> -->
+
+  </div>
+
+
+  <br><br><div id="map-canvas"></div>
+
+</div>
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>
+
+<script>
+  /*Adjustable Variables*/
+var distanceCoefficients = [];        //Array of distance coefficients
+var categoryPriceCompetition = [0,9,2,0]; //Competition with the same category and price
+var priceCompetition = [0,6,1,0];     //Competition with the same price range but different category
+var categoryCompetition = [0,0,0,0];    //Competition with the same category but different price range
+var complementaryEstabishment = [0,-3,1,0]; //Establishments with a different category and price rage
+distanceCoefficients.push(
+  categoryPriceCompetition,
+  priceCompetition,
+  categoryCompetition,
+  complementaryEstabishment);
+
+/*Program Variables*/
+var output = 0;
+
+/*Nameing Variables Do Not Change*/
+var samePriceAndCategory = 0;
+var samePriceOnly = 1;
+var sameCategoryOnly = 2;
+var differentPriceAndCategory = 3;
+var lati = 0;
+var lngi = 1;
+var price = 2;
+var cat = 3;
+
+/*Temporary*/
+var restaurant = 0;
+var coffeeShop = 1;
+var est = [];
+est.push([34.025787,-118.483277,2,0]);
+est.push([34.023690,-118.492328,2,0]);
+est.push([34.028597,-118.486277,2,0]);
+est.push([34.029111,-118.486358,1,0]);
+est.push([34.020216,-118.496283,2,0]);
+est.push([34.023857,-118.492100,2,0]);
+est.push([34.016630,-118.491290,2,0]);
+est.push([34.016828,-118.494929,1,1]);
+est.push([34.023823,-118.483193,1,1]);
+est.push([34.032964,-118.480940,1,1]);
+
+rate = function(lat,lng,cost,category){
+  var latitude = lat;
+  var longitude = lng;
+  var rating = 0;
+  var distance = 0;
+  var competitionType = 0;
+  for(var i = 0; i < est.length; i++){
+    distance = Math.sqrt(Math.pow(est[i][lati]-latitude,2)+Math.pow(est[i][lngi]-longitude,2));
+    if(est[i][price] == cost && est[i][cat] == category){
+      competitionType = samePriceAndCategory;
+    }else if(est[i][price] == cost){
+      competitionType = samePriceOnly;
+    }else if(est[i][cat] == category){
+      competitionType = sameCategoryOnly;
+    }else{
+      competitionType = differentPriceAndCategory;
+    }
+    rating -= distanceCoefficients[competitionType][0]
+    rating -= distanceCoefficients[competitionType][1]*Math.pow(distance,(-1));
+    rating -= distanceCoefficients[competitionType][2]*Math.pow(distance,(-2));
+    rating -= distanceCoefficients[competitionType][3]*Math.pow(distance,(-3));
+  }
+  return rating;
+};
+output = (rate(34.019021,-118.496379,1,coffeeShop));
+document.getElementsByClassName('rating')[0].innerHTML = output;
+</script>

@@ -2,6 +2,10 @@ BizApp::Application.routes.draw do
 
   root 'restaurants#new'
 
+  resources :users, except: [:destroy]
+
+  resource :sessions, only: [:create, :new, :destroy]
+
   resources :restaurants
 
   # The priority is based upon order of creation: first created -> highest priority.
