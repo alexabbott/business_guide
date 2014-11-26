@@ -1,4 +1,7 @@
 class RestaurantsController < ApplicationController
+  require 'factual'
+  skip_before_filter :authorize
+
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   # GET /restaurants
@@ -19,6 +22,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
     @user = User.new
     @is_login = true
+    @factual_data = factual.table("restaurants-us").filters("locality" => "santa monica").rows
   end
 
   # GET /restaurants/1/edit
