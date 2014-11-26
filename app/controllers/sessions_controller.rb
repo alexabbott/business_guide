@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+
+	skip_before_filter :authorize
+
+
 	def new
 		# Present an empty login form
 		@user = User.new
