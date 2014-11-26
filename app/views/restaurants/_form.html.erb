@@ -1,0 +1,28 @@
+<%= form_for(@restaurant) do |f| %>
+  <% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
+
+      <ul>
+      <% @restaurant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field" class='location'>
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field" class='category'>
+    <%= f.label :category %><br>
+    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']] %>
+  </div>
+  <div class="field" class='price'>
+    <%= f.label :price %><br>
+    <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']] %>
+  </div>
+  <div class="actions" class='get-rating'>
+    <%= f.submit "Check Success Rating" %>
+  </div>
+<% end %>

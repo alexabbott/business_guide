@@ -1,0 +1,116 @@
+<script src="http://maps.google.com/maps?file=api&v=2.133d&key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko" type="text/javascript"></script>
+<script>
+    var map = null;
+    var geocoder = null;
+
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map-canvas"));
+        map.setCenter(new GLatLng(34.012982, -118.495186), 17);
+        map.addControl(new GSmallZoomControl());
+        geocoder = new GClientGeocoder();
+        GEvent.addListener(map, "click", clicked);
+        map.openInfoWindow(map.getCenter());
+      }
+    }
+
+    function clicked(overlay, latlng) {
+      if (latlng) {
+        geocoder.getLocations(latlng, function(addresses) {
+          if(addresses.Status.code != 200) {
+            alert("reverse geocoder failed to find an address for " + latlng.toUrlValue());
+          }
+          else {
+            address = addresses.Placemark[0];
+            var myHtml = address.address;
+            console.log(address);
+            map.openInfoWindow(latlng, myHtml);
+            document.getElementById('coo').value = myHtml;
+            document.getElementById('lat').value = latlng.lat();
+            document.getElementById('lng').value = latlng.lng();
+          }
+        });
+      }
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'page:load', initialize);
+
+</script>
+<!-- <nav class="animated fadeIn">SIGN IN <span class="divider">|</span> SIGNUP</nav> -->
+
+    <div class="sign_up">
+      
+      <% if current_user %>
+
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+<h3 class="center sub_title animated fadeInDown" id="sub_title">YOUR GO-TO GUIDE FOR LOCAL BUSINESS SUCCESS PREDICTIONS</h3>
+
+<a class="link_text animated fadeIn"><div id="landing_button" class="animated fadeInUp" onclick="displayForm()">Get Your Prediction</div></a>
+
+<div id="form_map" class="animated fadeInUp">
+  
+<div class="new_form animated fadeInUp">
+<%= form_for(@restaurant) do |f| %>
+  <% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
+
+      <ul>
+      <% @restaurant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    Address: 
+    <%= f.text_field :location, placeholder: "Enter an Address or Click on the Map", :maxlength=>"254", :size=>"90", :id=>"coo" %><br><br>
+    Category: 
+    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']] %>
+    <span class="price_label">
+      Price Range: 
+      <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']] %>
+    </span>
+  <br><br>
+  <div class="actions center">
+    <%= f.submit "Check Success Rating", :class=>"submit get-rating" %>
+  </div>
+  <%= f.hidden_field :latitude, id: 'lat' %>
+  <%= f.hidden_field :longitude, id: 'lng' %>
+<% end %>
+</div>
+
+<div id="map-canvas" class="animated fadeInUp"></div>
+</div>
+
+<script>
+displayForm = function(){
+      document.getElementById("landing_button").style.display = "none";
+      document.getElementById("sub_title").style.display = "none";
+      document.getElementById("form_map").style.display = 'inline';
+    }
+</script>

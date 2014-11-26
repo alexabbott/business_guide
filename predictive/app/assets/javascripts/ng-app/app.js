@@ -1,0 +1,1 @@
+angular.module('predictiveApp', ['ui.router','templates']);
