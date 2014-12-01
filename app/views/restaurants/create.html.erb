@@ -118,7 +118,28 @@
 
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
-<!-- D3 starts here -->
+
+
+
+
+
+
+
+
+<div id="results">
+
+  <div class="white_text animated fadeIn">
+    <div class="rating_container">
+      <div class="float_right">
+        <h1 class="normal_font">Overall Rating</h1>
+        <p class="overall-rating"></p>
+      </div>
+  </div>
+</div>
+</div>
+      
+
+  <!-- D3 starts here -->
 
 
 <style type="text/css">
@@ -131,11 +152,17 @@ div.bar{
   margin-right: 2px;
 }
 
-body{
+div.graph{
   text-align: center ;
+  height: 100px;
+  width: 300px;
+  clear: both;
+  margin: auto;
+
 }
   </style>
-<body>
+
+<div class="graph">
 
 <script type="text/javascript">
 
@@ -148,6 +175,8 @@ var barPadding = 1;
 console.log(localStorage.negativeRating)
 
 var dataset = [((localStorage.trafficRating)/5), ((localStorage.negativeRating)/5), ((localStorage.positiveRating)/5)];
+
+var colordata = [((localStorage.trafficRating)*7), ((localStorage.negativeRating)*7), ((localStorage.positiveRating)*7)];
 
 var labeldata = ["Traffic Rating", "Negative Rating", "Positive Rating"];
 
@@ -181,7 +210,7 @@ console.log(dataset.length);
 
 
 // Create SVG Element 
-var svg = d3.select("body")
+var svg = d3.select(".graph")
 .append("svg")
 .attr("width", w)
 .attr("height", h);
@@ -200,8 +229,9 @@ svg.selectAll("rect")
 .attr("height", function(d){
   return d;
 })
+.data(colordata)
 .attr("fill", function(d){
-  return "rgb(0, 150, 0)";
+  return "rgb(0, 0, " + d + ")";
 
 });
 
@@ -245,27 +275,15 @@ d3.selectAll("rect")
 
 
 
-</body>
+
 
 
 <!-- D3 ends here -->
 
+</div>
 
 
-
-
-
-
-<div id="results">
-
-  <div class="white_text animated fadeIn">
-    <div class="rating_container">
-      <div class="float_right">
-        <h1 class="normal_font">Overall Rating</h1>
-        <p class="overall-rating"></p>
-      </div>
-      <div class="rating_subcontainer">
-
+    <div class="rating_subcontainer">
         <div class="each_rating">
           <h3 style="display:inline;">Traffic<br>Score</h3><br>
           <p class="traffic-rating rating"></p>
@@ -283,7 +301,7 @@ d3.selectAll("rect")
 
       </div>
 
-  </div>
+  
   <div class="recommendation_container">
     <h2 class="recommendations_header">Recommendations</h2>
     <div style="padding-left: 80px;">
@@ -313,8 +331,7 @@ d3.selectAll("rect")
     <span class="blue_text">PRICE:</span>
     <%= @restaurant.price %> -->
 
-  </div>
+
 
 
   <br><br><div id="map-canvas" style="width:100%"></div>
-</div>
