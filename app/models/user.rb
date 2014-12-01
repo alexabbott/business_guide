@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	include ActiveModel::SecurePassword
 	
-	# has_many :restaurants
+	has_many :restaurants
 
 	validates_presence_of :email,:password
 	validates_uniqueness_of :email
