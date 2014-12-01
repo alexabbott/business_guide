@@ -195,10 +195,10 @@ function displayRating(){
 		recommendation[1] = recommendPriceStart+recommendPrice[recommendPriceIndex]+recommendPriceEnd;
 	}
 	console.log(overallRating);
-	document.getElementsByClassName('traffic-rating')[0].innerHTML = trafficRating[0];
-	document.getElementsByClassName('positive-rating')[0].innerHTML = positiveRating[0];
-	document.getElementsByClassName('negative-rating')[0].innerHTML = negativeRating[0];
-	document.getElementsByClassName('overall-rating')[0].innerHTML = overallRating[0];
+	document.getElementsByClassName('traffic-rating')[0].innerHTML = Math.round(trafficRating[0]);
+	document.getElementsByClassName('positive-rating')[0].innerHTML = Math.round(positiveRating[0]);
+	document.getElementsByClassName('negative-rating')[0].innerHTML = Math.round(negativeRating[0]);
+	document.getElementsByClassName('overall-rating')[0].innerHTML = Math.round(overallRating[0]);
 	for(var i = 0; i < 2; i++){
 		document.getElementsByClassName('recommendation')[i].innerHTML = recommendation[i];
 	}
