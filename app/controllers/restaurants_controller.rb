@@ -22,7 +22,9 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
     @user = User.new
     @is_login = true
-    @factual_data = factual.table("restaurants-us").geo("$circle" => {"$center" => [34.012982, -118.495186], "$meters" => 10000}).sort("$distance").page(2, :per => 20).rows
+    #@factual_data = factual.table("restaurants-us")
+    #.geo("$point" => [34.012982, -118.495186])
+    #.sort("$distance").page(1, :per => 5).rows
     # @factual_data = factual.table("restaurants-us").filters("locality" => "santa monica").page(2, :per => 20).rows
   end
 
@@ -34,6 +36,10 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @factual_data = factual.table("restaurants-us")
+    .geo("$circle" => {"$center" => [@restaurant.latitude, @restaurant.longitude], "$meters" => 5000})
+    .sort("$distance")
+    .page(1, :per => 50).rows
 
     respond_to do |format|
       if @restaurant.save
@@ -78,6 +84,6 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:location, :category, :price)
+      params.require(:restaurant).permit(:location, :category, :price, :latitude, :longitude)
     end
 end

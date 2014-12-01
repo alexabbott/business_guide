@@ -6798,19 +6798,24 @@ var data = [33.46416,-117.67891,38700,
 32.55024,-116.93861,2200,
 37.79897,-122.27624,73000,
 37.80696,-122.27791,59000];
-var count = 0;
-var nearest = [];
-for(var i = 0; i < 10; i++){
-	nearest.push([9999,0,0,0]);
+/*This is needed to sort nearest routes numberically instead of alphebetically*/
+function sortNumber(a,b) {
+    return a[0] > b[0] ? 1 : a[0] < b[0] ? -1 : 0;
 }
+/*Find the nearest traffic volume count points to a specified location*/
 function findRoutes(lat, lng){
+	var count = 10;
+	var nearest = [];
+	for(var i = 0; i < count; i++){
+		nearest.push([9999,0,0,0]);
+	}
 	for(var i = 0; i < data.length; i+=3){
-		distance = Math.sqrt(Math.pow(data[i]-lat,2)+Math.pow(data[i+1]-lng,2));
+		distance = Math.sqrt(Math.pow(data[i]-lat,2)+Math.pow(data[i+1]-lng,2))*50;
 		if (distance < nearest[nearest.length-1][0]){
+			distance = Math.round(distance*1000)/1000;
 			nearest[nearest.length-1] = [distance, data[i], data[i+1], data[i+2]];
-			nearest.sort();
+			nearest.sort(sortNumber);
 		}
 	}
+	return nearest;
 }
-findRoutes(34.025787,-118.483277)
-document.getElementsByClassName('rating')[0].innerHTML = nearest;

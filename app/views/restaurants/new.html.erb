@@ -43,12 +43,10 @@
       
       <% if current_user %>
 
-
-
-          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
-         <span class="white_text">
-            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
-          </span>
+        <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+        <span class="white_text">
+          <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+        </span>
 
       <% else %>
 
@@ -90,10 +88,10 @@
     Address: 
     <%= f.text_field :location, placeholder: "Enter an Address or Click on the Map", :maxlength=>"254", :size=>"90", :id=>"coo" %><br><br>
     Category: 
-    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']] %>
+    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']], id:'restaurant_category' %>
     <span class="price_label">
       Price Range: 
-      <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']] %>
+      <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']], id:'restaurant_price' %>
     </span>
   <br><br>
   <div class="actions center">
@@ -103,10 +101,6 @@
   <%= f.hidden_field :longitude, id: 'lng' %>
 <% end %>
 </div>
-
-<span class="white_text">
-<%= @factual_data %>
-</span>
 
 <div id="map-canvas" class="animated fadeInUp"></div>
 </div>
