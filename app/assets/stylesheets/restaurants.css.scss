@@ -44,6 +44,7 @@ h1 {
 
 .main_title {
 	padding: 30px 0 20px 0;
+	color: white;
 }
 
 .sub_title {
@@ -112,6 +113,34 @@ h1 {
 	line-height: 50px;
 	text-decoration: none;
 	border-radius: 5px;
+}
+
+.rating {
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+	width: 30px;
+	text-align: center;
+	margin: 0 auto;
+	color: darkblue;
+	margin-top: 10px;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
+}
+
+.overall-rating {
+	font-size: 3em;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+	width: 60px;
+	height: 40px;
+	line-height: 30px;
+	text-align: center;
+	margin: 0 auto;
+	color: darkblue;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
 }
 
 #form_map {
