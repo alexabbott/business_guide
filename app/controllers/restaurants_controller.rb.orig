@@ -23,10 +23,14 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
     @user = User.new
     @is_login = true
+<<<<<<< HEAD
+    # @factual_data = factual.table("restaurants-us").geo("$circle" => {"$center" => [34.012982, -118.495186], "$meters" => 10000}).sort("$distance").rows
+=======
     #@factual_data = factual.table("restaurants-us")
     #.geo("$point" => [34.012982, -118.495186])
     #.sort("$distance").page(1, :per => 5).rows
     # @factual_data = factual.table("restaurants-us").filters("locality" => "santa monica").page(2, :per => 20).rows
+>>>>>>> master
   end
 
   # GET /restaurants/1/edit

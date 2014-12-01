@@ -87,7 +87,16 @@
 
     <h2>RECOMMENDATIONS:</h2>
 
-
+    <span class="white_text" id='factual-data'>
+      <% @factual_data.each do |element| %>
+        <%= element['name'] %>|
+        <%= element['latitude'] %>|
+        <%= element['longitude'] %>|
+        <%= element['price'] %>|
+        <%= element['rating'] %>|
+        <%= element['cuisine'] %>|  
+      <% end %>
+    </span>
 <!--     <span class="blue_text">LOCATION:</span>
     <%= @restaurant.location %><br> 
 
