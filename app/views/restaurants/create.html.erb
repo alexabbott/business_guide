@@ -139,13 +139,22 @@ body{
 
 <script type="text/javascript">
 
-var w = 500;
+var w = 300;
 var h = 100;
 var barPadding = 1;
 // var padding = 20;
 
 
-var dataset = [ 25, 7, 5, 22, 11, 8, 25, 14, 23, 19, 14, 11, 22, 23, 11, 13, 12, 17, 18, 10, 5, 18, 25, 9, 5];
+console.log(localStorage.negativeRating)
+
+var dataset = [((localStorage.trafficRating)/5), ((localStorage.negativeRating)/5), ((localStorage.positiveRating)/5)];
+
+var labeldata = ["Traffic Rating", "Negative Rating", "Positive Rating"];
+
+console.log(dataset.length);
+
+
+
 
 // Create scale functions
 // var xScale = d3.scale.linear()
@@ -189,10 +198,10 @@ svg.selectAll("rect")
 })
 .attr("width", w / dataset.length - barPadding)
 .attr("height", function(d){
-  return d * 4;
+  return d;
 })
 .attr("fill", function(d){
-  return "rgb(" + (d * 10) + ", 0, 0)";
+  return "rgb(0, 150, 0)";
 
 });
 
@@ -204,13 +213,15 @@ svg.selectAll("rect")
 // Create labels
 
 svg.selectAll("text")
-.data(dataset)
+.data(labeldata)
 .enter()
 .append("text")
 .text(function(d){
   return d;
 })
-.attr("x", function(d, i){
+.data(dataset)
+.attr("x", 
+  function(d, i){
   return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
 })
 .attr("y", function(d){
