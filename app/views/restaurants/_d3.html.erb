@@ -22,13 +22,13 @@
   // var padding = 20;
 
 
-  console.log(localStorage.negativeRating)
+  
 
-  var dataset = [((localStorage.trafficRating)/5), ((localStorage.negativeRating)/5), ((localStorage.positiveRating)/5)];
+  var dataset = [((localStorage.trafficRating[1])*3), ((localStorage.negativeRating[1])*3), ((localStorage.positiveRating[1])*3)];
 
   var labeldata = ["Traffic Score", "Competition Score", "Complement Score"];
 
-  console.log(dataset.length);
+ 
 
   // Create SVG Element 
   var svg = d3.select("body")
@@ -85,6 +85,8 @@
   .transition()
   .duration(2000)
   .attr("height", "100%");
+
+ 
 
   </script>
 
