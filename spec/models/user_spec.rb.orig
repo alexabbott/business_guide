@@ -7,8 +7,12 @@ require "shoulda/matchers"
 
 describe User do
 
+<<<<<<< HEAD
+	# it { should validate_uniqueness_of(:email) }
+=======
 
 	it { should validate_uniqueness_of(:email) }
+>>>>>>> master
 
     ## validate that a string like 'a@a.com' is 
     #  accepted as an email
