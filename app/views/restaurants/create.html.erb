@@ -1,3 +1,4 @@
+
  <!-- google maps api -->
 <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
@@ -85,6 +86,9 @@
   google.maps.event.addDomListener(window, 'page:load', initialize);
   
   </script>
+
+<%= render 'createmap' %>
+
 
 <div class="sign_up">
       
@@ -243,18 +247,42 @@ d3.selectAll("rect")
 
 <div id="results">
 
-  <div class="white_text">
+  <div class="white_text animated fadeIn">
+    <div class="rating_container">
+      <div class="float_right">
+        <h1 class="normal_font">Overall Rating</h1>
+        <p class="overall-rating"></p>
+      </div>
+      <div class="rating_subcontainer">
 
-  <h2>PREDICTION:</h2>
+        <div class="each_rating">
+          <h3 style="display:inline;">Traffic<br>Score</h3><br>
+          <p class="traffic-rating rating"></p>
+        </div>
 
-    <p class="traffic-rating"></p>
-    <p class="negative-rating"></p>
-    <p class="positive-rating"></p>
-    <p class="overall-rating"></p>
+      <div class="each_rating">
+        <h3 style="display:inline;">Competition Score</h3>
+        <p class="negative-rating rating" ></p>
+      </div>
 
-    <h2>RECOMMENDATIONS:</h2>
+      <div class="each_rating">
+        <h3 style="display:inline;">Complement Score</h3>
+        <p class="positive-rating rating"></p>
+      </div>
 
+      </div>
+
+  </div>
+  <div class="recommendation_container">
+    <h2 class="recommendations_header">Recommendations</h2>
+    <div style="padding-left: 80px;">
+      • Recommendation #1<br>
+      • Recommendation #2<br>
+      • Recommendation #3<br>
+      • Recommendation #4<br>
+    </div>
     <span class="white_text" id='factual-data'>
+
       <% @factual_data.each do |element| %>
         <%= element['name'] %>|
         <%= element['latitude'] %>|
@@ -264,6 +292,7 @@ d3.selectAll("rect")
         <%= element['cuisine'] %>|  
       <% end %>
     </span>
+  </div>
 <!--     <span class="blue_text">LOCATION:</span>
     <%= @restaurant.location %><br> 
 
@@ -276,5 +305,5 @@ d3.selectAll("rect")
   </div>
 
 
-  <br><br><div id="map-canvas"></div>
+  <br><br><div id="map-canvas" style="width:100%"></div>
 </div>
