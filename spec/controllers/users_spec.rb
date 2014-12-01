@@ -4,7 +4,8 @@ describe UsersController, :type => :controller do
 	let :valid_attributes do
     {
       email: "lakdjslfkj@lkajds.com",
-      password: "alkdsfjlk"
+      password: "alkdsfjlk",
+      password_confirmation: "alkdsfjlk"
     }
   end
 

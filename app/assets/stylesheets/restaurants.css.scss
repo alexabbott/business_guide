@@ -7,7 +7,7 @@ html, body {
 	font-size: 12px;
 	width: 100%;
 	background: image-url("http://alex-abbott.com/monkeypants/images/bg.jpg");
-	background-size: cover;
+	background-size: 150%;
 	background-color: #009ee8;
 	// color: #fff;
 	// overflow-x: hidden; 
@@ -73,6 +73,13 @@ h1 {
 	width: 33%;
 	display: inline;
 	float: left;
+	color: #fff;
+	font-family: 'Raleway', Times, serif;
+}
+
+.ratings_holder {
+	width:300px;
+	margin: 0 auto;
 }
 
 .rating_subcontainer {
@@ -105,6 +112,7 @@ h1 {
 
 .normal_font {
 	font-weight: normal;
+	font-size: 3em;
 }
 
 .submit {
@@ -154,9 +162,10 @@ h1 {
 	border-radius: 10px;
 	border: 1px solid #fff;
 	width: 30px;
+	background-color: #fff;
 	text-align: center;
 	margin: 0 auto;
-	color: darkblue;
+	color: green;
 	margin-top: 10px;
 	font-weight: bold;
 	font-family: "Raleway", arial, sans-serif;
@@ -166,7 +175,8 @@ h1 {
 	font-size: 3em;
 	padding: 10px;
 	border-radius: 10px;
-	border: 1px solid #fff;
+	border: 1px solid darkblue;
+	background-color: #fff;
 	width: 60px;
 	height: 40px;
 	line-height: 30px;
