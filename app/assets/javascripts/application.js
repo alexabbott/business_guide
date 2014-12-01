@@ -20,7 +20,7 @@ if(document.getElementsByClassName('get-rating')[0]){
 }
 /*Add factual component of prediction equation after the data has been updated */
 var factualData = document.getElementById('factual-data').innerHTML;
-document.getElementById('factual-data').onLoad(getCompetitionRating());
+document.getElementById('factual-data').onLoad(displayRating());
 /*Store the rating in the browser to it is available after page changes*/
 if (typeof window.localStorage != "undefined") {
     document.getElementsByClassName('rating')[0].innerHTML = localStorage.getItem('rating');
