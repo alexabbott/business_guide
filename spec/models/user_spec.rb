@@ -2,7 +2,11 @@ require "rails_helper"
 
 require "shoulda/matchers"
 
+
+    require "rails_helper"
+
 describe User do
+
 
 	it { should validate_uniqueness_of(:email) }
 
@@ -23,6 +27,7 @@ describe User do
                  for(:email)
     end
 
+
     #test both min and max validation attributes are present
     it { should ensure_length_of(:password).is_at_least(6) }
 
@@ -31,5 +36,8 @@ describe User do
     it { should ensure_length_of(:email).is_at_most(255)}
 
     it { should have_many(:restaurants) }
+
+
+
 
 end
