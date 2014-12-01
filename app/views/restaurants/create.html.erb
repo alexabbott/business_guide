@@ -79,18 +79,42 @@
 
 <div id="results">
 
-  <div class="white_text">
+  <div class="white_text animated fadeIn">
+    <div style="float: left;width:50%;height:200px;">
+      <div style="float: right;">
+        <h1 style="font-weight:normal;">Overall Rating</h1>
+        <p class="overall-rating"></p>
+      </div>
+      <div style="float: right;display:inline;padding-top: 30px;">
 
-  <h2>PREDICTION:</h2>
+        <div style="width: 33%;display:inline;float:left;">
+          <h3 style="display:inline;">Traffic<br>Score</h3><br>
+          <p class="traffic-rating rating"></p>
+        </div>
 
-    <p class="traffic-rating"></p>
-    <p class="negative-rating"></p>
-    <p class="positive-rating"></p>
-    <p class="overall-rating"></p>
+      <div style="width: 31%;display:inline;float:left;">
+        <h3 style="display:inline;">Competition Score</h3>
+        <p class="negative-rating rating" ></p>
+      </div>
 
-    <h2>RECOMMENDATIONS:</h2>
+      <div style="width: 32%;display:inline;float:left;">
+        <h3 style="display:inline;padding-bottom:5px;">Compliment Score</h3>
+        <p class="positive-rating rating"></p>
+      </div>
 
+      </div>
+
+  </div>
+  <div style="float: left;width:50%;height:300px;text-align: left;">
+    <h2 style="padding: 40px 0 0 80px;">Recommendations</h2>
+    <div style="padding-left: 80px;">
+      • Recommendation #1<br>
+      • Recommendation #2<br>
+      • Recommendation #3<br>
+      • Recommendation #4<br>
+    </div>
     <span class="white_text" id='factual-data'>
+
       <% @factual_data.each do |element| %>
         <%= element['name'] %>|
         <%= element['latitude'] %>|
@@ -100,6 +124,7 @@
         <%= element['cuisine'] %>|  
       <% end %>
     </span>
+  </div>
 <!--     <span class="blue_text">LOCATION:</span>
     <%= @restaurant.location %><br> 
 
@@ -112,5 +137,5 @@
   </div>
 
 
-  <br><br><div id="map-canvas"></div>
+  <br><br><div id="map-canvas" style="width:100%"></div>
 </div>
