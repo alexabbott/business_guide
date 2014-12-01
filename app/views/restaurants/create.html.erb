@@ -1,52 +1,5 @@
- <!-- google maps api -->
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
-</script>
 
- <script type="text/javascript">
-  
- function initialize() {
-      var map;
-      var elevator;
-      var myOptions = {
-          zoom: 21,
-          center: new google.maps.LatLng(34.0500, -118.2500),
-          mapTypeId: 'terrain',
-          scrollwheel: false
-      };
-      map = new google.maps.Map($('#map-canvas')[0], myOptions);
-
-      var addresses = ['<%= @restaurant.location %>'];
-
-      for (var x = 0; x < addresses.length; x++) {
-          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
-              var p = data.results[0].geometry.location
-              var latlng = new google.maps.LatLng(p.lat, p.lng);
-               
-              var marker = new google.maps.Marker({
-                  position: latlng,
-                  map: map,
-                  icon: 'http://i.stack.imgur.com/uFZxX.png'
-              });
-              
-              var infowindow = new google.maps.InfoWindow({
-                content: '<%= @restaurant.location %>'
-              });
-              infowindow.open(map, marker);
-        
-              // google.maps.event.addListener(marker, 'click', function() {
-              //   infowindow.open(map,marker);
-              // });
-
-              map.setCenter(latlng);
-
-          });
-      }
-  };
-  google.maps.event.addDomListener(window, 'load', initialize);
-  google.maps.event.addDomListener(window, 'page:load', initialize);
-  
-  </script>
+<%= render 'createmap' %>
 
 <div class="sign_up">
       
@@ -76,24 +29,44 @@
 
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
+  <h1 class="normal_font">Overall Rating</h1>
+  <p class="overall-rating"></p>
 
-<div id="results">
 
-  <div class="white_text">
+<%= render 'd3' %>
 
-  <h2>PREDICTION:</h2>
+  <div class="ratings_holder">
+          <div class="each_rating">
+  <!--           <h3>Traffic<br>Score</h3> -->
+            <p class="traffic-rating rating"></p>
+          </div>
 
-    <p class="traffic-rating"></p>
-    <p class="negative-rating"></p>
-    <p class="positive-rating"></p>
-    <p class="overall-rating"></p>
+          <div class="each_rating">
+  <!--           <h3>Competition<br>Score</h3>
+   -->          <p class="negative-rating rating" ></p>
+          </div>
 
-    <h2>RECOMMENDATIONS:</h2>
+          <div class="each_rating">
+  <!--           <h3>Complement<br>Score</h3>
+   -->          <p class="positive-rating rating"></p>
+          </div>
+  </div>
 
-    <p class='recommendation'></p>
-    <p class='recommendation'></p>
 
+
+
+
+<div id="results" style="text-align: center; color: #fff;">
+
+    <h2 style="padding-top:60px;">Recommendations</h2>
+    <div>
+      • Recommendation #1<br>
+      • Recommendation #2<br>
+      • Recommendation #3<br>
+      • Recommendation #4<br>
+    </div>
     <span class="white_text" id='factual-data'>
+
       <% @factual_data.each do |element| %>
         <%= element['name'] %>|
         <%= element['latitude'] %>|
@@ -103,6 +76,7 @@
         <%= element['cuisine'] %>|  
       <% end %>
     </span>
+  </div>
 <!--     <span class="blue_text">LOCATION:</span>
     <%= @restaurant.location %><br> 
 
@@ -115,5 +89,5 @@
   </div>
 
 
-  <br><br><div id="map-canvas"></div>
+  <br><br><div id="map-canvas" style="width:100%"></div>
 </div>

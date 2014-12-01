@@ -6,8 +6,9 @@ html, body {
 	font-family: 'Raleway', arial, sans-serif;
 	font-size: 12px;
 	width: 100%;
-	background-image: url("bg.jpg");
-	background-size: cover;
+	background: image-url("http://alex-abbott.com/monkeypants/images/bg.jpg");
+	background-size: 150%;
+	background-color: #009ee8;
 	// color: #fff;
 	// overflow-x: hidden; 
 	padding: 0;
@@ -44,6 +45,7 @@ h1 {
 
 .main_title {
 	padding: 30px 0 20px 0;
+	color: white;
 }
 
 .sub_title {
@@ -67,9 +69,50 @@ h1 {
 	float: right;
 }
 
+.each_rating {
+	width: 33%;
+	display: inline;
+	float: left;
+	color: #fff;
+	font-family: 'Raleway', Times, serif;
+}
+
+.ratings_holder {
+	width:300px;
+	margin: 0 auto;
+}
+
+.rating_subcontainer {
+	float: right;
+	display: inline;
+	padding-top: 30px;
+}
+
+.rating_container {
+	float: left;
+	width:50%;
+	height:200px;
+}
+
+.recommendation_container {
+	float: left;
+	width: 50%;
+	height: 300px;
+	text-align: left;
+}
+
+.recommendations_header {
+	padding: 40px 0 0 80px;
+}
+
 .link_text {
 	text-decoration: none;
 	color: #00a3f0;
+}
+
+.normal_font {
+	font-weight: normal;
+	font-size: 3em;
 }
 
 .submit {
@@ -112,6 +155,36 @@ h1 {
 	line-height: 50px;
 	text-decoration: none;
 	border-radius: 5px;
+}
+
+.rating {
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+	width: 30px;
+	background-color: #fff;
+	text-align: center;
+	margin: 0 auto;
+	color: green;
+	margin-top: 10px;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
+}
+
+.overall-rating {
+	font-size: 3em;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid darkblue;
+	background-color: #fff;
+	width: 60px;
+	height: 40px;
+	line-height: 30px;
+	text-align: center;
+	margin: 0 auto;
+	color: darkblue;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
 }
 
 #form_map {
