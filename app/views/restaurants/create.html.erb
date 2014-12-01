@@ -1,94 +1,5 @@
 
- <!-- google maps api -->
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
-</script>
-
- <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
-
-<script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
-</script>
-
- <script type="text/javascript">
- 
- var heatmap;
-      var heatmapData = [
-  {location: new google.maps.LatLng(34.017862, -118.4892), weight: -0.5},
-  new google.maps.LatLng(34.013706, -118.4953),
-  {location: new google.maps.LatLng(34.015661, -118.4919), weight: 2},
-  {location: new google.maps.LatLng(34.018218, -118.4896), weight: 3},
-  {location: new google.maps.LatLng(34.017084, -118.4936), weight: 2},
-  new google.maps.LatLng(34.015422, -118.4901),
-  {location: new google.maps.LatLng(34.015336, -118.4966), weight: 0.5},
-
-  {location: new google.maps.LatLng(34.017211, -118.4939), weight: 3},
-  {location: new google.maps.LatLng(34.02366, -118.4923), weight: 2},
-  new google.maps.LatLng(34.013761, -118.4949),
-  {location: new google.maps.LatLng(34.024381, -118.4921), weight: 0.5},
-  new google.maps.LatLng(34.013878, -118.49517),
-  {location: new google.maps.LatLng(34.014284, -118.4980), weight: 2},
-  {location: new google.maps.LatLng(34.020093, -118.4974), weight: 3},
-  {location: new google.maps.LatLng(34.02448, -118.4913), weight: 3},
-  {location: new google.maps.LatLng(34.012684, -118.4960), weight: 3},
-  {location: new google.maps.LatLng(34.014861, -118.4932), weight: 3},
-  {location: new google.maps.LatLng(34.014472, -118.4983), weight: 3},
-  {location: new google.maps.LatLng(34.017607, -118.49816), weight: 3},
-  {location: new google.maps.LatLng(34.010373, -118.4933), weight: 3}
-]; 
-
-
- function initialize() {
-      var map;
-      var elevator;
-      var myOptions = {
-          zoom: 13,
-          center: new google.maps.LatLng(34.0500, -118.2500),
-          mapTypeId: google.maps.MapTypeId.HYBRID,
-          scrollwheel: false
-      };
-      map = new google.maps.Map($('#map-canvas')[0], myOptions);
-
-      var pointArray = new google.maps.MVCArray(heatmapData);
-
-      heatmap = new google.maps.visualization.HeatmapLayer({ data: pointArray});
-
-        heatmap.setMap(map);
-
-      var addresses = ['<%= @restaurant.location %>'];
-
-      for (var x = 0; x < addresses.length; x++) {
-          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
-              var p = data.results[0].geometry.location
-              var latlng = new google.maps.LatLng(p.lat, p.lng);
-               
-              var marker = new google.maps.Marker({
-                  position: latlng,
-                  map: map,
-                  icon: 'http://i.stack.imgur.com/uFZxX.png'
-              });
-              
-              var infowindow = new google.maps.InfoWindow({
-                content: '<%= @restaurant.location %>'
-              });
-              infowindow.open(map, marker);
-        
-              // google.maps.event.addListener(marker, 'click', function() {
-              //   infowindow.open(map,marker);
-              // });
-
-              map.setCenter(latlng);
-
-          });
-      }
-  };
-  google.maps.event.addDomListener(window, 'load', initialize);
-  google.maps.event.addDomListener(window, 'page:load', initialize);
-  
-  </script>
-
 <%= render 'createmap' %>
-
 
 <div class="sign_up">
       
@@ -118,177 +29,129 @@
 
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
-<!-- D3 starts here -->
-
-
-<style type="text/css">
-
-div.bar{ 
-  display: inline-block;
-  width: 20px;
-/*  height: 75px;*/
-  background-color: teal;
-  margin-right: 2px;
-}
-
-body{
-  text-align: center ;
-}
-  </style>
-<body>
-
-<script type="text/javascript">
-
-var w = 300;
-var h = 100;
-var barPadding = 1;
-// var padding = 20;
-
-
-console.log(localStorage.negativeRating)
-
-var dataset = [((localStorage.trafficRating)/5), ((localStorage.negativeRating)/5), ((localStorage.positiveRating)/5)];
-
-var labeldata = ["Traffic Rating", "Negative Rating", "Positive Rating"];
-
-console.log(dataset.length);
+  <h1 class="normal_font">Overall Rating</h1>
+  <p class="overall-rating"></p>
 
 
 
+  <!-- D3 starts here -->
+  <style type="text/css">
 
-// Create scale functions
-// var xScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[0]; })])
-// .range([padding, w - padding * 2 ]);
+  div.bar{ 
+    display: inline-block;
+    width: 20px;
+  /*  height: 75px;*/
+    background-color: teal;
+    margin-right: 2px;
+  }
 
-// var yScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[1]; })])
-// .range([h - padding, padding]);
+  body{
+    text-align: center ;
+  }
+    </style>
 
-// var rScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[1]; })])
-// .range([2, 5]);
+  <script type="text/javascript">
 
-// Define the x-axis
-
-// var xAxis = d3.svg.axis()
-// .scale(xScale)
-// .orient("bottom");
-
-
-
-// Create SVG Element 
-var svg = d3.select("body")
-.append("svg")
-.attr("width", w)
-.attr("height", h);
-
-svg.selectAll("rect")
-.data(dataset)
-.enter()
-.append("rect")
-.attr("x", function(d, i){
-  return i * (w / dataset.length);
-})
-.attr("y", function(d){
-  return h - (d * 4);
-})
-.attr("width", w / dataset.length - barPadding)
-.attr("height", function(d){
-  return d;
-})
-.attr("fill", function(d){
-  return "rgb(0, 150, 0)";
-
-});
-
-// Create x-axis
-
-// svg.append("g")
-// .call(xAxis);
-
-// Create labels
-
-svg.selectAll("text")
-.data(labeldata)
-.enter()
-.append("text")
-.text(function(d){
-  return d;
-})
-.data(dataset)
-.attr("x", 
-  function(d, i){
-  return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-})
-.attr("y", function(d){
-  return h - (d * 4) + 14;
-})
-.attr("font-family", "sans-serif")
-.attr("font-size", "11px")
-.attr("fill", "white")
-.attr("text-anchor", "middle");
+  var w = 300;
+  var h = 100;
+  var barPadding = 1;
+  // var padding = 20;
 
 
-// d3.select("body")
-d3.selectAll("rect")
-.data(dataset)
-.attr("height", "0%")
-.transition()
-.duration(2000)
-.attr("height", "100%");
+  console.log(localStorage.negativeRating)
 
-</script>
+  var dataset = [((localStorage.trafficRating)/5), ((localStorage.negativeRating)/5), ((localStorage.positiveRating)/5)];
+
+  var labeldata = ["Traffic Score", "Competition Score", "Complement Score"];
+
+  console.log(dataset.length);
+
+  // Create SVG Element 
+  var svg = d3.select("body")
+  .append("svg")
+  .attr("width", w)
+  .attr("height", h);
+
+  svg.selectAll("rect")
+  .data(dataset)
+  .enter()
+  .append("rect")
+  .attr("x", function(d, i){
+    return i * (w / dataset.length);
+  })
+  .attr("y", function(d){
+    return h - (d * 4);
+  })
+  .attr("width", w / dataset.length - barPadding)
+  .attr("height", function(d){
+    return d;
+  })
+  .attr("fill", function(d){
+    return "rgb(0, 150, 0)";
+
+  });
+
+  // Create labels
+
+  svg.selectAll("text")
+  .data(labeldata)
+  .enter()
+  .append("text")
+  .text(function(d){
+    return d;
+  })
+  .data(dataset)
+  .attr("x", 
+    function(d, i){
+    return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+  })
+  .attr("y", function(d){
+    return h - (d * 4) + 14;
+  })
+  .attr("font-family", "sans-serif")
+  .attr("font-size", "11px")
+  .attr("fill", "white")
+  .attr("text-anchor", "middle");
 
 
+  // d3.select("body")
+  d3.selectAll("rect")
+  .data(dataset)
+  .attr("height", "0%")
+  .transition()
+  .duration(2000)
+  .attr("height", "100%");
 
-</body>
+  </script>
 
 
-<!-- D3 ends here -->
+  <!-- D3 ends here -->
 
+  <div class="ratings_holder">
+          <div class="each_rating">
+  <!--           <h3>Traffic<br>Score</h3> -->
+            <p class="traffic-rating rating"></p>
+          </div>
 
+          <div class="each_rating">
+  <!--           <h3>Competition<br>Score</h3>
+   -->          <p class="negative-rating rating" ></p>
+          </div>
 
-
-
-
-
-<div id="results">
-
-  <div class="white_text animated fadeIn">
-    <div class="rating_container">
-
-      <div class="float_right">
-        <h1 class="normal_font">Overall Rating</h1>
-        <p class="overall-rating"></p>
-      </div>
-
-      <div style="width: 380px; float: right;">
-
-        <div class="each_rating">
-        <h3>Traffic<br>Score</h3>
-        <p class="traffic-rating rating"></p>
-        </div>
-
-        <div class="each_rating">
-        <h3>Competition<br>Score</h3>
-        <p class="negative-rating rating" ></p>
-        </div>
-
-        <div class="each_rating">
-        <h3>Complement<br>Score</h3>
-        <p class="positive-rating rating"></p>
-        </div>
-
-      </div>
-
+          <div class="each_rating">
+  <!--           <h3>Complement<br>Score</h3>
+   -->          <p class="positive-rating rating"></p>
+          </div>
   </div>
-  <div class="recommendation_container">
-    <h2 class="recommendations_header">Recommendations</h2>
-    <div style="padding-left: 80px;">
+
+
+
+
+
+<div id="results" style="text-align: center; color: #fff;">
+
+    <h2 style="padding-top:60px;">Recommendations</h2>
+    <div>
       • Recommendation #1<br>
       • Recommendation #2<br>
       • Recommendation #3<br>
