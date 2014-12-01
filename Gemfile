@@ -11,6 +11,8 @@ end
 
 gem 'httparty'
 
+gem 'rails_12factor'
+
 
 gem 'factual-api'
 
