@@ -11,11 +11,8 @@ end
 
 gem 'httparty'
 
-<<<<<<< HEAD
-gem 'factory_girl_rails'
-=======
+
 gem 'factual-api'
->>>>>>> 63745db477dad826433a5bed7658aee1f2a68bf2
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
