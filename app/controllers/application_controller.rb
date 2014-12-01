@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
   	@current_user ||= User.where(id: session[:user_id]).first
   end
   def factual
-    @factual = Factual.new("qi4zvbJjei5sJY6XSElA4hEBxBpYYXWY9Ar0OAkF
-", "RY4QcKjEQIGYnRndiSBzHo5fXZkTtblK9IxH4U1V
-")
+    @factual = Factual.new("Zm7Usesd5EmkIAI5TS35rFJ0lAbNvV9mIHcretpx", "288r7kyFoicPncc5wJ3W9pyDRoqHHsLTcQP4IB3h")
   end
 end
