@@ -11,8 +11,10 @@ end
 
 gem 'httparty'
 
+# use this for Heroku deployment
 gem 'rails_12factor'
 
+# Use this to get factual data
 gem 'factual-api'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

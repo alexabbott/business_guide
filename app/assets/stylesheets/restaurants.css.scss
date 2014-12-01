@@ -69,9 +69,42 @@ h1 {
 	float: right;
 }
 
+.each_rating {
+	width: 33%;
+	display: inline;
+	float: left;
+}
+
+.rating_subcontainer {
+	float: right;
+	display: inline;
+	padding-top: 30px;
+}
+
+.rating_container {
+	float: left;
+	width:50%;
+	height:200px;
+}
+
+.recommendation_container {
+	float: left;
+	width: 50%;
+	height: 300px;
+	text-align: left;
+}
+
+.recommendations_header {
+	padding: 40px 0 0 80px;
+}
+
 .link_text {
 	text-decoration: none;
 	color: #00a3f0;
+}
+
+.normal_font {
+	font-weight: normal;
 }
 
 .submit {
