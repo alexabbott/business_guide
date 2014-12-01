@@ -3,57 +3,18 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
 </script>
 
- <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- heatlayer library -->
-<script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
-</script>
-
  <script type="text/javascript">
-      var heatmap;
-      var heatmapData = [
-  {location: new google.maps.LatLng(34.017862, -118.4892), weight: -0.5},
-  new google.maps.LatLng(34.013706, -118.4953),
-  {location: new google.maps.LatLng(34.015661, -118.4919), weight: 2},
-  {location: new google.maps.LatLng(34.018218, -118.4896), weight: 3},
-  {location: new google.maps.LatLng(34.017084, -118.4936), weight: 2},
-  new google.maps.LatLng(34.015422, -118.4901),
-  {location: new google.maps.LatLng(34.015336, -118.4966), weight: 0.5},
-
-  {location: new google.maps.LatLng(34.017211, -118.4939), weight: 3},
-  {location: new google.maps.LatLng(34.02366, -118.4923), weight: 2},
-  new google.maps.LatLng(34.013761, -118.4949),
-  {location: new google.maps.LatLng(34.024381, -118.4921), weight: 0.5},
-  new google.maps.LatLng(34.013878, -118.49517),
-  {location: new google.maps.LatLng(34.014284, -118.4980), weight: 2},
-  {location: new google.maps.LatLng(34.020093, -118.4974), weight: 3},
-  {location: new google.maps.LatLng(34.02448, -118.4913), weight: 3},
-  {location: new google.maps.LatLng(34.012684, -118.4960), weight: 3},
-  {location: new google.maps.LatLng(34.014861, -118.4932), weight: 3},
-  {location: new google.maps.LatLng(34.014472, -118.4983), weight: 3},
-  {location: new google.maps.LatLng(34.017607, -118.49816), weight: 3},
-  {location: new google.maps.LatLng(34.010373, -118.4933), weight: 3}
-];
+  
  function initialize() {
       var map;
       var elevator;
       var myOptions = {
-          zoom: 13,
+          zoom: 21,
           center: new google.maps.LatLng(34.0500, -118.2500),
-          mapTypeId: google.maps.MapTypeId.HYBRID,
+          mapTypeId: 'terrain',
           scrollwheel: false
       };
-
-
       map = new google.maps.Map($('#map-canvas')[0], myOptions);
-      
-    var pointArray = new google.maps.MVCArray(heatmapData);
-
-      heatmap = new google.maps.visualization.HeatmapLayer({ data: pointArray});
-
-        heatmap.setMap(map);
-
 
       var addresses = ['<%= @restaurant.location %>'];
 
@@ -90,7 +51,7 @@
 <!-- <p id="notice"><%= notice %></p>
  -->
 
-    <div class="sign_up animated fadeIn">
+    <div class="sign_up">
       
       <% if current_user %>
 
@@ -118,126 +79,6 @@
 
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
-<!-- D3 starts here -->
-
-
-<style type="text/css">
-
-div.bar{ 
-  display: inline-block;
-  width: 20px;
-/*  height: 75px;*/
-  background-color: teal;
-  margin-right: 2px;
-}
-
-body{
-  text-align: center ;
-}
-  </style>
-<body>
-
-<script type="text/javascript">
-
-var w = 500;
-var h = 100;
-var barPadding = 1;
-// var padding = 20;
-
-
-var dataset = [ 25, 7, 5, 22, 11, 8, 25, 14, 23, 19, 14, 11, 22, 23, 11, 13, 12, 17, 18, 10, 5, 18, 25, 9, 5];
-
-// Create scale functions
-// var xScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[0]; })])
-// .range([padding, w - padding * 2 ]);
-
-// var yScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[1]; })])
-// .range([h - padding, padding]);
-
-// var rScale = d3.scale.linear()
-// .domain([0, d3.max(dataset, function(d){
-//   return d[1]; })])
-// .range([2, 5]);
-
-// Define the x-axis
-
-// var xAxis = d3.svg.axis()
-// .scale(xScale)
-// .orient("bottom");
-
-
-
-// Create SVG Element 
-var svg = d3.select("body")
-.append("svg")
-.attr("width", w)
-.attr("height", h);
-
-svg.selectAll("rect")
-.data(dataset)
-.enter()
-.append("rect")
-.attr("x", function(d, i){
-  return i * (w / dataset.length);
-})
-.attr("y", function(d){
-  return h - (d * 4);
-})
-.attr("width", w / dataset.length - barPadding)
-.attr("height", function(d){
-  return d * 4;
-})
-.attr("fill", function(d){
-  return "rgb(" + (d * 10) + ", 0, 0)";
-
-});
-
-// Create x-axis
-
-// svg.append("g")
-// .call(xAxis);
-
-// Create labels
-
-svg.selectAll("text")
-.data(dataset)
-.enter()
-.append("text")
-.text(function(d){
-  return d;
-})
-.attr("x", function(d, i){
-  return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-})
-.attr("y", function(d){
-  return h - (d * 4) + 14;
-})
-.attr("font-family", "sans-serif")
-.attr("font-size", "11px")
-.attr("fill", "white")
-.attr("text-anchor", "middle");
-
-
-// d3.select("body")
-d3.selectAll("rect")
-.data(dataset)
-.attr("height", "0%")
-.transition()
-.duration(2000)
-.attr("height", "100%");
-
-</script>
-
-
-
-</body>
-
-
-<!-- D3 ends here -->
 
 <div id="results">
 

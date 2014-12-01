@@ -26,6 +26,8 @@
             console.log(address);
             map.openInfoWindow(latlng, myHtml);
             document.getElementById('coo').value = myHtml;
+            document.getElementById('lat').value = latlng.lat();
+            document.getElementById('lng').value = latlng.lng();
           }
         });
       }
@@ -37,16 +39,14 @@
 </script>
 <!-- <nav class="animated fadeIn">SIGN IN <span class="divider">|</span> SIGNUP</nav> -->
 
-    <div class="sign_up">
+    <div class="sign_up animated fadeIn">
       
       <% if current_user %>
 
-
-
-          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
-         <span class="white_text">
-            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
-          </span>
+        <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+        <span class="white_text">
+          <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+        </span>
 
       <% else %>
 
@@ -88,15 +88,17 @@
     Address: 
     <%= f.text_field :location, placeholder: "Enter an Address or Click on the Map", :maxlength=>"254", :size=>"90", :id=>"coo" %><br><br>
     Category: 
-    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']] %>
+    <%= f.select :category, [['Choose a category...'],['American','american'],['Bar','bar'],['BBQ','bbq'],['Breakfeast','breakfast'],['Burgers','burgers'],['Chinese','chinese'],['Cafe','cafe'],['Dessert','dessert'],['Diner','diner'],['French','french'],['Indian','indian'],['Italian','italian'],['Japanese','japanese'],['Mediterranean'],['Mexican','mexican'],['Sandwiches','sandwiches'],['Salads','salads'],['Seafood','seafood'],['Steakhouse','steakhouse']], id:'restaurant_category' %>
     <span class="price_label">
       Price Range: 
-      <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']] %>
+      <%= f.select :price, [['$'],['$$'],['$$$'],['$$$$']], id:'restaurant_price' %>
     </span>
   <br><br>
   <div class="actions center">
-    <%= f.submit "Check Success Rating", :class=>"submit" %>
+    <%= f.submit "Check Success Rating", :class=>"submit get-rating" %>
   </div>
+  <%= f.hidden_field :latitude, id: 'lat' %>
+  <%= f.hidden_field :longitude, id: 'lng' %>
 <% end %>
 </div>
 

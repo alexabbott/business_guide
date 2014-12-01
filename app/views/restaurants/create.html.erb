@@ -1,0 +1,113 @@
+ <!-- google maps api -->
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
+</script>
+
+ <script type="text/javascript">
+  
+ function initialize() {
+      var map;
+      var elevator;
+      var myOptions = {
+          zoom: 21,
+          center: new google.maps.LatLng(34.0500, -118.2500),
+          mapTypeId: 'terrain',
+          scrollwheel: false
+      };
+      map = new google.maps.Map($('#map-canvas')[0], myOptions);
+
+      var addresses = ['<%= @restaurant.location %>'];
+
+      for (var x = 0; x < addresses.length; x++) {
+          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
+              var p = data.results[0].geometry.location
+              var latlng = new google.maps.LatLng(p.lat, p.lng);
+               
+              var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                  icon: 'http://i.stack.imgur.com/uFZxX.png'
+              });
+              
+              var infowindow = new google.maps.InfoWindow({
+                content: '<%= @restaurant.location %>'
+              });
+              infowindow.open(map, marker);
+        
+              // google.maps.event.addListener(marker, 'click', function() {
+              //   infowindow.open(map,marker);
+              // });
+
+              map.setCenter(latlng);
+
+          });
+      }
+  };
+  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'page:load', initialize);
+  
+  </script>
+
+<div class="sign_up">
+      
+      <% if current_user %>
+
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+
+<div id="results">
+
+  <div class="white_text">
+
+  <h2>PREDICTION:</h2>
+
+    <p class="rating"></p>
+
+    <h2>RECOMMENDATIONS:</h2>
+
+    <span class="white_text" id='factual-data'>
+      <% @factual_data.each do |element| %>
+        <%= element['name'] %>|
+        <%= element['latitude'] %>|
+        <%= element['longitude'] %>|
+        <%= element['price'] %>|
+        <%= element['rating'] %>|
+        <%= element['cuisine'] %>|  
+      <% end %>
+    </span>
+<!--     <span class="blue_text">LOCATION:</span>
+    <%= @restaurant.location %><br> 
+
+    <span class="blue_text">CATEGORY:</span>
+    <%= @restaurant.category %><br> 
+
+    <span class="blue_text">PRICE:</span>
+    <%= @restaurant.price %> -->
+
+  </div>
+
+
+  <br><br><div id="map-canvas"></div>
+</div>

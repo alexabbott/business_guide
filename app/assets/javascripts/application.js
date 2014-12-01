@@ -13,3 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+/*Add event listenter to the rating button*/
+if(document.getElementsByClassName('get-rating')[0]){
+	document.getElementsByClassName('get-rating')[0].addEventListener('click', getRating, false);
+}
+/*Add factual component of prediction equation after the data has been updated */
+var factualData = document.getElementById('factual-data').innerHTML;
+document.getElementById('factual-data').onLoad(getCompetitionRating());
+/*Store the rating in the browser to it is available after page changes*/
+if (typeof window.localStorage != "undefined") {
+    document.getElementsByClassName('rating')[0].innerHTML = localStorage.getItem('rating');
+}
