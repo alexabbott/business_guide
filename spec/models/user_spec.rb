@@ -35,7 +35,7 @@ describe User do
 
     it { should ensure_length_of(:email).is_at_most(255)}
 
-    it { should have_many(:restaurants) }
+    # it { should have_many(:restaurants) }
 
 
 
