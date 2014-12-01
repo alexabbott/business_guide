@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   end
   def factual
 <<<<<<< HEAD
-    @factual = Factual.new("0BvPtMoWDC1Im9khpuVBxesqxUQ4I96sSU5S0Uuz", "cURPaE2uu62sysazzXOLH953DoQkzUTOoj4r1Rdy")
+    @factual = Factual.new("vg0U5xTnHbd0MzQOBmo3fSHpXzSgC762R3pOwhOc", "L4YgaEpvLdFLj9NwHd559Ik1Qa26lTGVUT6acu4H")
 =======
-    @factual = Factual.new("Zm7Usesd5EmkIAI5TS35rFJ0lAbNvV9mIHcretpx", "288r7kyFoicPncc5wJ3W9pyDRoqHHsLTcQP4IB3h")
->>>>>>> 7c2770c5bcd429f179dea67e5431f1073be993dd
+    @factual = Factual.new("XN5NDTgBV3VYoLEFkdnKrD6EXhrTcdQw22uCwy83", "lzkwQaMqjgRPL0CYRvvN2LgeWOUHYvElhb9pbC2z")
+>>>>>>> 4ac9c5804b4d468311071591ad59752bab161e43
   end
 end
