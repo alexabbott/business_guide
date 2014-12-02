@@ -8,7 +8,7 @@
 
 
         <!-- current user's email -->
-        <span class="white_text"><%= current_user.email %></span> |           
+        <span class="white_text" style="font-family:'Raleway';"><%= current_user.email %></span> |           
 
         <!-- 'Logout' link  -->
          <span class="white_text">
@@ -18,12 +18,12 @@
       <% else %>
 
         <!-- sign up link -->
-        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;font-family:'Raleway'">SIGN UP</a>
 
         <span class="blue_text">|</span> 
 
         <!-- login link -->
-        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;font-family:'Raleway'">LOGIN</a>
 
       <% end %>
     </div>
@@ -38,7 +38,7 @@
 
   <h1 class="normal_font animated fadeInDown">
     Overall Rating</h1>
-  <p class="overall-rating"></p>
+  <p class="overall-rating" id="overall"></p>
 
 
 <!-- D3 bar chart rendered here -->
@@ -64,13 +64,20 @@
   </div>
 
 <!-- traffic info display -->
-<div id="trafficinfo">Higher 'Traffic Scores' indicate a high volume of vehicular traffic near the selected location. Higher traffic scores result indicate more customers.</div>
+<div id="trafficinfo" class="animated fadeInUp">Higher 'Traffic Scores' indicate a high volume of vehicular traffic near the selected location. Higher traffic scores result indicate more customers.</div>
 
 <!-- competition info display -->
-<div id="competeinfo">Higher 'Competition Scores' indicate a higher volume of competing businesses in the selected location. Lower 'Competition Scores' are better for your business.</div>
+<div id="competeinfo" class="animated fadeInUp">Higher 'Competition Scores' indicate a higher volume of competing businesses in the selected location. Lower 'Competition Scores' are better for your business.</div>
 
 <!-- complementary info display -->
-<div id="positiveinfo">Higher 'Complementary Scores' indicate a high concentration of non-competiting, beneficial businesses in the area.</div>
+<div id="positiveinfo" class="animated fadeInUp">Higher 'Complementary Scores' indicate a high concentration of non-competiting, beneficial businesses in the area.</div>
+
+<!-- complementary info display -->
+<div id="overallinfo" class="animated fadeInUp">
+  <b><span style="color: red;">0-100</span> :</b> Poor Success Rating<br>
+  <b><span style="color: yellow;">100-200</span> :</b> Average Success Rating<br>
+  <b><span style="color: green;">200-300</span> :</b> Amazing Success Rating
+</div>
 
 
 
@@ -118,6 +125,19 @@
 
 <!-- script to show/hide score info -->
 <script>
+
+  showoverallinfo = function() {
+    document.getElementById("overallinfo").style.display= "inline";
+  }
+
+  hideoverallinfo = function() {
+    document.getElementById("overallinfo").style.display= "none";
+  }
+
+  document.getElementById("overall").addEventListener('click', showoverallinfo);
+
+  document.getElementById("overallinfo").addEventListener('click', hideoverallinfo);
+
   showpositiveinfo = function() {
     document.getElementById("positiveinfo").style.display= "inline";
   }
