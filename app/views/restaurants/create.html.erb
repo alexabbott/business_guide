@@ -47,23 +47,30 @@
 
 <!-- Individual ratings -->
   <div class="ratings_holder animated fadeInUp">
-          <div class="each_rating">
+          <div class="each_rating" id="traffic">
             <!-- Traffic rating -->
             <p class="traffic-rating rating"></p>
           </div>
 
-          <div class="each_rating">
+          <div class="each_rating" id="compete">
           <!-- competition score -->
-            <p class="negative-rating rating" ></p>
+            <p class="negative-rating rating"></p>
           </div>
 
-          <div class="each_rating">
+          <div class="each_rating" id="positive">
             <!-- complementary business score -->
             <p class="positive-rating rating"></p>
           </div>
   </div>
 
+<!-- traffic info display -->
+<div id="trafficinfo">Higher 'Traffic Scores' indicate a high volume of vehicular traffic near the selected location. Higher traffic scores result indicate more customers.</div>
 
+<!-- competition info display -->
+<div id="competeinfo">Higher 'Competition Scores' indicate a higher volume of competing businesses in the selected location. Lower 'Competition Scores' are better for your business.</div>
+
+<!-- complementary info display -->
+<div id="positiveinfo">Higher 'Complementary Scores' indicate a high concentration of non-competiting, beneficial businesses in the area.</div>
 
 
 
@@ -102,6 +109,50 @@
 
   </div>
 
+  <br><br>
+
   <!-- map rendered here -->
-  <br><br><div id="map-canvas" style="width:100%" class="animated fadeInUp"></div>
+  <div id="map-canvas" style="width:100%" class="animated fadeInUp"></div>
 </div>
+
+
+<!-- script to show/hide score info -->
+<script>
+  showpositiveinfo = function() {
+    document.getElementById("positiveinfo").style.display= "inline";
+  }
+
+  hidepositiveinfo = function() {
+    document.getElementById("positiveinfo").style.display= "none";
+  }
+
+  document.getElementById("positive").addEventListener('click', showpositiveinfo);
+
+  document.getElementById("positiveinfo").addEventListener('click', hidepositiveinfo);
+
+    showcompeteinfo = function() {
+    document.getElementById("competeinfo").style.display= "inline";
+  }
+
+  hidecompeteinfo = function() {
+    document.getElementById("competeinfo").style.display= "none";
+  }
+
+  document.getElementById("compete").addEventListener('click', showcompeteinfo);
+
+  document.getElementById("competeinfo").addEventListener('click', hidecompeteinfo);
+
+  showtrafficinfo = function() {
+    document.getElementById("trafficinfo").style.display= "inline";
+  }
+
+  hidetrafficinfo = function() {
+    document.getElementById("trafficinfo").style.display= "none";
+  }
+
+  document.getElementById("traffic").addEventListener('click', showtrafficinfo);
+
+  document.getElementById("trafficinfo").addEventListener('click', hidetrafficinfo);
+
+
+</script>
