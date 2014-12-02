@@ -1,13 +1,16 @@
-
+<!-- google maps api and geocoding partial -->
 <%= render 'createmap' %>
 
+<!-- authentiation here -->
 <div class="sign_up">
       
       <% if current_user %>
 
 
+        <!-- current user's email -->
+        <span class="white_text"><%= current_user.email %></span> |           
 
-          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+        <!-- 'Logout' link  -->
          <span class="white_text">
             <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
           </span>
@@ -25,31 +28,38 @@
       <% end %>
     </div>
 
+
+<!-- Back to home link -->
 <a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
 
+<!-- main page title -->
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 
 
-  <h1 class="normal_font">Overall Rating</h1>
+  <h1 class="normal_font animated fadeInDown">
+    Overall Rating</h1>
   <p class="overall-rating"></p>
 
 
+<!-- D3 bar chart rendered here -->
 <%= render 'd3' %>
 
-  <div class="ratings_holder">
+
+<!-- Individual ratings -->
+  <div class="ratings_holder animated fadeInUp">
           <div class="each_rating">
-  <!--           <h3>Traffic<br>Score</h3> -->
+            <!-- Traffic rating -->
             <p class="traffic-rating rating"></p>
           </div>
 
           <div class="each_rating">
-  <!--           <h3>Competition<br>Score</h3>
-   -->          <p class="negative-rating rating" ></p>
+          <!-- competition score -->
+            <p class="negative-rating rating" ></p>
           </div>
 
           <div class="each_rating">
-  <!--           <h3>Complement<br>Score</h3>
-   -->          <p class="positive-rating rating"></p>
+            <!-- complementary business score -->
+            <p class="positive-rating rating"></p>
           </div>
   </div>
 
@@ -57,11 +67,18 @@
 
 
 
-<div id="results" style="text-align: center; color: #fff;">
+<div id="results" style="text-align: center; color: #fff;" class="animated fadeInUp">
 
-    <h2 style="padding-top:60px;">Recommendations</h2>
+    <!-- Recommendation section -->
+    <h2 style="padding-top:60px;">
+      Recommendations</h2>
+
+    <!-- location recommendation -->
     <div class="recommendation"></div>
+
+    <!-- price recommendation -->
     <div class="recommendation"></div>
+
     <span class="white_text" id='factual-data'>
 
       <% @factual_data.each do |element| %>
@@ -85,6 +102,6 @@
 
   </div>
 
-
-  <br><br><div id="map-canvas" style="width:100%"></div>
+  <!-- map rendered here -->
+  <br><br><div id="map-canvas" style="width:100%" class="animated fadeInUp"></div>
 </div>
