@@ -126,8 +126,8 @@ function getRating(){
 	localStorage.trafficRating = JSON.stringify(storeTrafficRating);
 	localStorage.latitude = latitude.toString();
 	localStorage.longitude = longitude.toString();
-	localStorage.cost = storeCost.toString();
-	localStorage.category = storeCategory.toString();
+	localStorage.cost = cost.toString();
+	localStorage.category = category.toString();
 }
 
 function displayRating(){

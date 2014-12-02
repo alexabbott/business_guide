@@ -121,6 +121,7 @@ h1 {
 	display:none;
 	padding:20px;
 	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
 }
 #competeinfo {
 	position:absolute;
@@ -133,8 +134,8 @@ h1 {
 	display:none;
 	padding:20px;
 	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
 }
-
 
 #trafficinfo {
 	position:absolute;
@@ -147,6 +148,7 @@ h1 {
 	display:none;
 	padding:20px;
 	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
 }
 
 .normal_font {
