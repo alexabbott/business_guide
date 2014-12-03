@@ -48,7 +48,7 @@ test:
   encoding: unicode
   database: biz_app_test
   pool: 5
-  username: 
+  username: postgres
   password: 
 
 production:
