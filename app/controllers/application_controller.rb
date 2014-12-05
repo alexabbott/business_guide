@@ -1,3 +1,4 @@
+
 class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
@@ -7,9 +8,8 @@ class ApplicationController < ActionController::Base
   def current_user
   	@current_user ||= User.where(id: session[:user_id]).first
   end
-
-  # factual api key and secret
   def factual
     @factual = Factual.new("lbK0dTnbagtdHu4p7uh5mEZUQaogdPoXbsokyxde", "QLlJgvXdwX2quhXJbhKdVkDbGkyHzGz4Vv4vuPwA")
   end
 end
+

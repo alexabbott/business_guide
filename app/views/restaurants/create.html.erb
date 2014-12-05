@@ -1,99 +1,6 @@
-<!-- google maps api and geocoding partial -->
-<%= render 'createmap' %>
-
-<!-- authentiation here -->
-<div class="sign_up">
-      
-      <% if current_user %>
 
 
-        <!-- current user's email -->
-        <span class="white_text" style="font-family:'Raleway';"><%= current_user.email %></span> |           
-
-        <!-- 'Logout' link  -->
-         <span class="white_text">
-            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
-          </span>
-
-      <% else %>
-
-        <!-- sign up link -->
-        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;font-family:'Raleway'">SIGN UP</a>
-
-        <span class="blue_text">|</span> 
-
-        <!-- login link -->
-        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;font-family:'Raleway'">LOGIN</a>
-
-      <% end %>
-    </div>
-
-
-<!-- Back to home link -->
-<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
-
-<!-- main page title -->
-<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
-
-
-  <h1 class="normal_font animated fadeInDown">
-    Overall Rating</h1>
-  <p class="overall-rating" id="overall"></p>
-
-
-<!-- D3 bar chart rendered here -->
-<%= render 'd3' %>
-
-
-<!-- Individual ratings -->
-  <div class="ratings_holder animated fadeInUp">
-          <div class="each_rating" id="traffic">
-            <!-- Traffic rating -->
-            <p class="traffic-rating rating"></p>
-          </div>
-
-          <div class="each_rating" id="compete">
-          <!-- competition score -->
-            <p class="negative-rating rating"></p>
-          </div>
-
-          <div class="each_rating" id="positive">
-            <!-- complementary business score -->
-            <p class="positive-rating rating"></p>
-          </div>
-  </div>
-
-<!-- traffic info display -->
-<div id="trafficinfo" class="animated fadeInUp">Higher 'Traffic Scores' indicate a high volume of vehicular traffic near the selected location. Higher traffic scores result indicate more customers.</div>
-
-<!-- competition info display -->
-<div id="competeinfo" class="animated fadeInUp">Higher 'Competition Scores' indicate a higher volume of competing businesses in the selected location. Lower 'Competition Scores' are better for your business.</div>
-
-<!-- complementary info display -->
-<div id="positiveinfo" class="animated fadeInUp">Higher 'Complementary Scores' indicate a high concentration of non-competiting, beneficial businesses in the area.</div>
-
-<!-- complementary info display -->
-<div id="overallinfo" class="animated fadeInUp">
-  <b><span style="color: red;">0-100</span> :</b> Poor Success Rating<br>
-  <b><span style="color: darkyellow;">100-200</span> :</b> Average Success Rating<br>
-  <b><span style="color: green;">200-300</span> :</b> Amazing Success Rating
-</div>
-
-
-
-<div id="results" style="text-align: center; color: #fff;" class="animated fadeInUp">
-
-    <!-- Recommendation section -->
-    <h2 style="padding-top:60px;">
-      Recommendations</h2>
-
-    <!-- location recommendation -->
-    <div class="recommendation"></div>
-
-    <!-- price recommendation -->
-    <div class="recommendation"></div>
-
-    <span class="white_text" id='factual-data'>
+<span class="white_text" id='factual-data'>
 
       <% @factual_data.each do |element| %>
         <%= element['name'] %>|
@@ -103,8 +10,80 @@
         <%= element['rating'] %>|
         <%= element['cuisine'] %>|  
       <% end %>
+    
+
+
     </span>
+
+<%= render 'createmap' %>
+
+<div class="sign_up">
+      
+      <% if current_user %>
+
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+
+  <h1 class="normal_font">Overall Rating</h1>
+  <p class="overall-rating"></p>
+
+
+<%= render 'd3' %>
+
+  <div class="ratings_holder">
+          <div class="each_rating">
+  <!--           <h3>Traffic<br>Score</h3> -->
+            <p class="traffic-rating rating"></p>
+          </div>
+
+          <div class="each_rating">
+  <!--           <h3>Competition<br>Score</h3>
+   -->          <p class="negative-rating rating" ></p>
+          </div>
+
+          <div class="each_rating">
+  <!--           <h3>Complement<br>Score</h3>
+   -->          <p class="positive-rating rating"></p>
+          </div>
   </div>
+
+
+
+
+
+<div id="results" style="text-align: center; color: #fff;">
+
+    <h2 style="padding-top:60px;">Recommendations</h2>
+    <div class="recommendation"></div>
+    <div class="recommendation"></div>
+
+  </div>
+
+
+
+
 <!--     <span class="blue_text">LOCATION:</span>
     <%= @restaurant.location %><br> 
 
@@ -116,63 +95,7 @@
 
   </div>
 
-  <br><br>
 
-  <!-- map rendered here -->
-  <div id="map-canvas" style="width:100%" class="animated fadeInUp"></div>
+  <br><br><div id="map-canvas" style="width:100%"></div>
 </div>
 
-
-<!-- script to show/hide score info -->
-<script>
-
-  showoverallinfo = function() {
-    document.getElementById("overallinfo").style.display= "inline";
-  }
-
-  hideoverallinfo = function() {
-    document.getElementById("overallinfo").style.display= "none";
-  }
-
-  document.getElementById("overall").addEventListener('click', showoverallinfo);
-
-  document.getElementById("overallinfo").addEventListener('click', hideoverallinfo);
-
-  showpositiveinfo = function() {
-    document.getElementById("positiveinfo").style.display= "inline";
-  }
-
-  hidepositiveinfo = function() {
-    document.getElementById("positiveinfo").style.display= "none";
-  }
-
-  document.getElementById("positive").addEventListener('click', showpositiveinfo);
-
-  document.getElementById("positiveinfo").addEventListener('click', hidepositiveinfo);
-
-    showcompeteinfo = function() {
-    document.getElementById("competeinfo").style.display= "inline";
-  }
-
-  hidecompeteinfo = function() {
-    document.getElementById("competeinfo").style.display= "none";
-  }
-
-  document.getElementById("compete").addEventListener('click', showcompeteinfo);
-
-  document.getElementById("competeinfo").addEventListener('click', hidecompeteinfo);
-
-  showtrafficinfo = function() {
-    document.getElementById("trafficinfo").style.display= "inline";
-  }
-
-  hidetrafficinfo = function() {
-    document.getElementById("trafficinfo").style.display= "none";
-  }
-
-  document.getElementById("traffic").addEventListener('click', showtrafficinfo);
-
-  document.getElementById("trafficinfo").addEventListener('click', hidetrafficinfo);
-
-
-</script>
