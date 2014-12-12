@@ -27,6 +27,12 @@ h1 {
 	color: #fff;
 }
 
+#overall {
+	text-align: center;
+	margin: 0 auto;
+	padding-bottom: 27px;
+}
+
 .new {
 	text-decoration: none;
 	text-align: left;
@@ -68,15 +74,16 @@ h1 {
 }
 
 .each_rating {
-	width: 33%;
+	width: 25%;
 	display: inline;
 	float: left;
 	color: #fff;
 	font-family: 'Raleway', Times, serif;
+	text-align: center;
 }
 
 .ratings_holder {
-	width:300px;
+	width:400px;
 	margin: 0 auto;
 }
 
