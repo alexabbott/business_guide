@@ -230,6 +230,8 @@ function displayRating(){
 		if(i == costRange-1){				//If the higest price range is selected
 			offsetRating[i]-=25;			//Further reduce the base rating
 		}
+		//Add population density rating to all overall ratings
+		offsetRating[i]+=JSON.parse(localStorage.densityRating);
 	}
 	//Calculate the overall rating for each possible selection case
 	for(var i = 0; i < positiveRating.length; i++){
