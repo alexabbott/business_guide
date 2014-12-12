@@ -1,3 +1,10 @@
+/* Traffic volume data array */
+/* By Brian Cottrell	     */
+/* 12-05-2014      		     */
+//Every third element begans a new point
+//For each point the first element is latitude
+//The second element is longitude
+//The third is avarage daily traffic volume
 var data = [33.46416,-117.67891,38700,
 33.53176,-117.77487,36800,
 33.54274,-117.78531,38500,
@@ -6799,23 +6806,29 @@ var data = [33.46416,-117.67891,38700,
 37.79897,-122.27624,73000,
 37.80696,-122.27791,59000];
 /*This is needed to sort nearest routes numberically instead of alphebetically*/
-function sortNumber(a,b) {
+function sortNumber(a, b) {
     return a[0] > b[0] ? 1 : a[0] < b[0] ? -1 : 0;
 }
 /*Find the nearest traffic volume count points to a specified location*/
 function findRoutes(lat, lng){
-	var count = 10;
-	var nearest = [];
-	for(var i = 0; i < count; i++){
-		nearest.push([9999,0,0,0]);
-	}
+	var count = 10;					//Uses only the nearest 10 traffic count points
+	var nearest = [];				//Stores the nearest 10 traffic count points
+	for(var i = 0; i < count; i++){	//Set up the nearest array
+		nearest.push([9999,0,0,0]);	//By setting the initial distance very great
+	}								//The distance will be replace by actual data
+	//For every point in the traffic count list
 	for(var i = 0; i < data.length; i+=3){
+		//Calculate the distance
 		distance = Math.sqrt(Math.pow(data[i]-lat,2)+Math.pow(data[i+1]-lng,2))*50;
+		//If the distance is less than that of the 10th nearest point
 		if (distance < nearest[nearest.length-1][0]){
 			distance = Math.round(distance*1000)/1000;
+			//Add the point to the nearest array
 			nearest[nearest.length-1] = [distance, data[i], data[i+1], data[i+2]];
+			//Sort the nearest array so the furthest point is in the last position
 			nearest.sort(sortNumber);
 		}
 	}
+	//return an array with information about the nearest traffic count points
 	return nearest;
 }
