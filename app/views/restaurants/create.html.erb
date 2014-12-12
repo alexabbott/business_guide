@@ -43,23 +43,30 @@
 <!-- Displays the page title -->
 <h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
 <!-- Overall rating title followed by the actual rating -->
-  <h1 class="normal_font">Overall Rating</h1>
+  <h1 class="normal_font" id="overall">Overall Rating</h1>
   <p class="overall-rating"></p>
-<!-- Bar charts for displaying rating information -->
-<%= render 'd3' %>
+
 <!-- Additional rating information -->
 <div class="ratings_holder">
   <div class="each_rating">
     <!-- <h3>Traffic<br>Score</h3> -->
     <p class="traffic-rating rating"></p>
+    Traffic
   </div>
   <div class="each_rating">
     <!-- <h3>Competition<br>Score</h3> -->
     <p class="negative-rating rating" ></p>
+    Competition
   </div>
   <div class="each_rating">
     <!-- <h3>Complement<br>Score</h3> -->
     <p class="positive-rating rating"></p>
+    Complement
+  </div>
+  <div class="each_rating">
+    <!-- <h3>Complement<br>Score</h3> -->
+    <p class="population-rating rating"></p>
+    Population
   </div>
 </div>
 
