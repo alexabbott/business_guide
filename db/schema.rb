@@ -29,16 +29,11 @@ ActiveRecord::Schema.define(version: 20141125013622) do
 
   add_index "restaurants", ["user_id"], name: "index_user_id", using: :btree
 
-  create_table "searches", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
     t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
