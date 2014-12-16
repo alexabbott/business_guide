@@ -26,6 +26,7 @@ function getTrafficRating(lat, lng){
 	}
 	return trafficRating;		//Returns a rating based on traffic volume data
 };
+/*This function returns the population density component of the rating for a given location*/
 function getDensityRating(lat, lng){
 	/*Variables*/
 	var latitude = lat;			//Latitude of selected location
@@ -318,6 +319,7 @@ function displayRating(){
 	document.getElementsByClassName('traffic-rating')[0].innerHTML = Math.round(trafficRating[0]);
 	document.getElementsByClassName('positive-rating')[0].innerHTML = Math.round(positiveRating[0]);
 	document.getElementsByClassName('negative-rating')[0].innerHTML = Math.round(negativeRating[0]);
+	document.getElementsByClassName('density-rating')[0].innerHTML = Math.round(densityRating);
 	document.getElementsByClassName('overall-rating')[0].innerHTML = Math.round(overallRating[0]);
 	//Add each recommendation to the page	
 	for(var i = 0; i < 3; i++){
