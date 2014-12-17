@@ -13,27 +13,27 @@
 
 var data = document.getElementById('factual-data').innerHTML.toString().split('|');
  
- console.log(data[1]);
- console.log(data[2]);
- 
- var heatmap;
- var heatmapData = [];
- var cost = localStorage.cost;
- var category = localStorage.category;
- var compType = [0,1];
- var distance = [];
- var latitude = localStorage.latitude;
- var longitude = localStorage.longitude;
- var latitudeN = parseFloat(latitude)+0.002;
-  var latitudeS = parseFloat(latitude)-0.002;
-  var longitudeE = parseFloat(longitude)+0.002;
-  var longitudeW = parseFloat(longitude)-0.002;
-  var costPossibilities = [];
-  var positiveRating = [];
-  var negativeRating = [];
-  var distanceSize = 9;
-  var costRange = 4;
-  var categorySize = 10;
+console.log(data[1]);
+console.log(data[2]);
+
+var heatmap;
+var heatmapData = [];
+var cost = localStorage.cost;
+var category = localStorage.category;
+var compType = [0,1];
+var distance = [];
+var latitude = localStorage.latitude;
+var longitude = localStorage.longitude;
+var latitudeN = parseFloat(latitude)+0.002;
+var latitudeS = parseFloat(latitude)-0.002;
+var longitudeE = parseFloat(longitude)+0.002;
+var longitudeW = parseFloat(longitude)-0.002;
+var costPossibilities = [];
+var positiveRating = [];
+var negativeRating = [];
+var distanceSize = 9;
+var costRange = 4;
+var categorySize = 10;
 
  for(var i = 0; i < data.length-6; i+=6){
   compType[0] = Math.abs(cost.length-data[i+3][9])

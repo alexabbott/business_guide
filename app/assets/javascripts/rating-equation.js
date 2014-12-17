@@ -1,6 +1,7 @@
 /* Rating Equations          */
 /* By Brian Cottrell	     */
 /* 11-27-2014      		     */
+
 /*This function returns the traffic component of the rating for a given location*/
 function getTrafficRating(lat, lng){
 	/*Variables*/
@@ -43,7 +44,7 @@ function getDensityRating(lat, lng){
 			densityRating+=(densityData[i][3])/((1+densityData[i][0])*100000);
 			//The closest points contribute more to the population density rating
 		}
-	}
+	}	
 	return densityRating;		//Returns a rating based on population density data
 };
 /*This function returns a competition component of the rating based on surrounding businesses*/
@@ -183,14 +184,14 @@ function getRating(){
 	storeTrafficRating[6] = getTrafficRating(latitudeSouth, longitudeWest);
 	storeTrafficRating[7] = getTrafficRating(latitude, longitudeWest);
 	storeTrafficRating[8] = getTrafficRating(latitudeNorth, longitudeWest);
-	//Store the array of traffic ratings to use when determining the overall ratings
-	localStorage.trafficRating = JSON.stringify(storeTrafficRating);
-	//Store a population density for the selected location
-	localStorage.densityRating = JSON.stringify(getDensityRating(latitude, longitude));
 	localStorage.latitude = latitude.toString();			//Store the selected latitude
 	localStorage.longitude = longitude.toString();			//Store the selected longitude
 	localStorage.cost = cost.toString();			    	//Store the selected cost
 	localStorage.category = category.toString();		    //Store the selected category
+	//Store the array of traffic ratings to use when determining the overall ratings
+	localStorage.trafficRating = JSON.stringify(storeTrafficRating);
+	//Store a population density for the selected location
+	localStorage.densityRating = JSON.stringify(getDensityRating(latitude, longitude));
 };
 /*This fuction combines all of the calculated ratings and adds them to the website*/
 function displayRating(){
@@ -215,7 +216,7 @@ function displayRating(){
 	var recommendIndex = 0;
 	//Variables for assembling the price range recommendation text
 	var recommendPriceStart = 'If you change to ';
-	var recommendPrice = ['an inexpensive', 'a moderate', 'a expensive', 'a very expensive'];
+	var recommendPrice = ['an inexpensive', 'a moderate', 'an expensive', 'a very expensive'];
 	var recommendPriceEnd = ' price range, you will have less competition.';
 	var recommendCurrentPrice = 'You have selected an ideal price range for this location';
 	var recommendPriceIndex = 0;
@@ -226,10 +227,10 @@ function displayRating(){
 					'diner', 'french', 'indian', 'italian', 'japanese', 'mediterranean', 'mexican', 
 					'sandwiches', 'salads', 'seafood', 'steakhouse'];	
 	//The base rating is determined by the price range setting
-	for(var i = 0; i < costRange; i++){		//For each possible price range
-		offsetRating[i] = 150-50*i;			//Higher price range settings have a lower base rating
-		if(i == costRange-1){				//If the higest price range is selected
-			offsetRating[i]-=25;			//Further reduce the base rating
+	for(var i = 1; i <= costRange; i++){	//For each possible price range
+		offsetRating[i] = 100-25*i;			//Higher price range settings have a lower base rating
+		if(i == costRange){					//If the higest price range is selected
+			offsetRating[i]-=15;			//Further reduce the base rating
 		}
 		//Add population density rating to all overall ratings
 		offsetRating[i]+=JSON.parse(localStorage.densityRating);
@@ -316,11 +317,24 @@ function displayRating(){
 	}
 	recommendation[2] = recommendation[2]+'.'				//finish the category recommendation text
 	//Add various ratings to the website
-	document.getElementsByClassName('traffic-rating')[0].innerHTML = Math.round(trafficRating[0]);
-	document.getElementsByClassName('positive-rating')[0].innerHTML = Math.round(positiveRating[0]);
-	document.getElementsByClassName('negative-rating')[0].innerHTML = Math.round(negativeRating[0]);
-	document.getElementsByClassName('density-rating')[0].innerHTML = Math.round(densityRating);
+	document.getElementsByClassName('rating')[0].innerHTML = Math.round(trafficRating[0]);
+	document.getElementsByClassName('rating')[1].innerHTML = Math.round(positiveRating[0]);
+	document.getElementsByClassName('rating')[2].innerHTML = Math.round(negativeRating[0]);
+	document.getElementsByClassName('rating')[3].innerHTML = Math.round(localStorage.densityRating);
 	document.getElementsByClassName('overall-rating')[0].innerHTML = Math.round(overallRating[0]);
+	//Set heights on bar charts to represent the contribution of each rating to the overall rating
+	var barChart = document.getElementsByClassName('bar-chart');
+	//Set the height to match the rating
+	barChart[0].style.height = (Math.round(trafficRating[0]))+'px';
+	barChart[1].style.height = (Math.round(positiveRating[0]))+'px';
+	barChart[2].style.height = (Math.round(negativeRating[0]))+'px';
+	barChart[3].style.height = (Math.round(localStorage.densityRating))+'px';
+	//Add a top margin to offest the height so each bar lines up at the bottom
+	barChart[0].style.marginTop = (110-Math.round(trafficRating[0]))+'px';
+	barChart[1].style.marginTop = (110-Math.round(positiveRating[0]))+'px';
+	barChart[2].style.marginTop = (110-Math.round(negativeRating[0]))+'px';
+	barChart[2].style.backgroundColor = 'red';						//Color the negative rating red
+	barChart[3].style.marginTop = (110-Math.round(localStorage.densityRating))+'px';
 	//Add each recommendation to the page	
 	for(var i = 0; i < 3; i++){
 		document.getElementsByClassName('recommendation')[i].innerHTML = recommendation[i];

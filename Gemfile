@@ -12,7 +12,7 @@ end
 gem 'httparty'
 
 # use this for Heroku deployment
-#gem 'rails_12factor'
+# gem 'rails_12factor'
 
 # Use this to get factual data
 gem 'factual-api'

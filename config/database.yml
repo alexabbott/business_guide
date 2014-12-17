@@ -49,7 +49,7 @@ test:
   database: biz_app_test
   pool: 5
   username: postgres
-  password: rails
+  password: rails 
 
 production:
   adapter: postgresql

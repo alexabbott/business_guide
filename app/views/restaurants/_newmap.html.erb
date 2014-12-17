@@ -2,11 +2,16 @@
 <script>
     var map = null;
     var geocoder = null;
-
+    var latitude = 34.012982;
+    var longitude = -118.495186;
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map-canvas"));
-        map.setCenter(new GLatLng(34.012982, -118.495186), 17);
+        if(localStorage.latitude && localStorage.longitude){
+          latitude = localStorage.latitude;
+          longitude = localStorage.longitude;
+        }
+        map.setCenter(new GLatLng(JSON.parse(latitude), JSON.parse(longitude)), 17);
         map.addControl(new GSmallZoomControl());
         geocoder = new GClientGeocoder();
         GEvent.addListener(map, "click", clicked);

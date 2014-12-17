@@ -26,7 +26,8 @@ class RestaurantsController < ApplicationController
     #@factual_data = factual.table("restaurants-us")
     #.geo("$point" => [34.012982, -118.495186])
     #.sort("$distance").page(1, :per => 5).rows
-    # @factual_data = factual.table("restaurants-us").filters("locality" => "santa monica").page(2, :per => 20).rows
+    # @factual_data = factual.table("restaurants-us")
+    #.filters("locality" => "santa monica").page(2, :per => 20).rows
   end
 
   # GET /restaurants/1/edit
