@@ -1,0 +1,95 @@
+<!-- Create page appears after a prediction is submitted -->
+
+<!-- Variable in the span are for reference only -->
+<span class="white_text" id='factual-data'>
+<!-- This does not appear on the page -->
+      <% @factual_data.each do |element| %>
+        <%= element['name'] %>|
+        <%= element['latitude'] %>|
+        <%= element['longitude'] %>|
+        <%= element['price'] %>|
+        <%= element['rating'] %>|
+        <%= element['cuisine'] %>|
+      <% end %>
+</span>
+
+<!-- Runs a javascript file for creating a google map -->
+<%= render 'createmap' %>
+
+<!-- Code for elements that appear on the page starts here -->
+<!-- Page header displays user information -->
+<div class="sign_up">
+  <!-- If the user is singned in display the username and a logout option -->
+  <% if current_user %>
+    <span class="white_text">
+      <%= current_user.email %>
+    </span>|<span class="white_text">
+      <!-- 'Logout' link for full size view -->
+      <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+    </span>
+  <!-- If the user is not singned in display sign in and sign up options -->
+  <% else %>
+    <!-- Sign up link -->
+    <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+    <span class="blue_text">|</span> 
+    <!-- Login link -->
+    <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+  <% end %>
+</div>
+<!-- Home page link -->
+<a href="/restaurants/new" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<!-- Page body begans here -->
+<!-- Displays the page title -->
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+<!-- Overall rating title followed by the actual rating -->
+  <h1 class="normal_font" id="overall">Overall Rating</h1>
+  <p class="overall-rating"></p>
+
+<!-- Additional rating information -->
+<div class="ratings_holder">
+  <div class="each-rating">
+    <!-- <h3>Traffic<br>Score</h3> -->
+    <div class='bar-chart'></div>
+    <p class="rating"></p>
+    Traffic
+  </div>
+  <div class="each-rating">
+    <!-- <h3>Competition<br>Score</h3> -->
+    <div class='bar-chart'></div>
+    <p class="rating" ></p>
+    Complement
+  </div>
+  <div class="each-rating">
+    <!-- <h3>Complement<br>Score</h3> -->
+    <div class='bar-chart'></div>
+    <p class="rating"></p>
+    Competition
+  </div>
+  <div class="each-rating">
+    <!-- <h3>Complement<br>Score</h3> -->
+    <div class='bar-chart'></div>
+    <p class="rating"></p>
+    Density
+  </div> 
+</div>
+</br></br></br></br></br></br></br>
+<!-- Displays recommendations -->
+<div id="results" style="text-align: center; color: #fff;">
+  <h2 style="padding-top:60px;">Recommendations</h2>
+  <div class="recommendation"></div>
+  <div class="recommendation"></div>
+  <div class="recommendation"></div>
+</div>
+
+<!--     <span class="blue_text">LOCATION:</span>
+    <%= @restaurant.location %><br> 
+
+    <span class="blue_text">CATEGORY:</span>
+    <%= @restaurant.category %><br> 
+
+    <span class="blue_text">PRICE:</span>
+    <%= @restaurant.price %> -->
+
+<!-- Google map display -->
+<br><br><div id="map-canvas" style="width:100%"></div>

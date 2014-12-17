@@ -1,0 +1,29 @@
+<br><br><br><br>
+<h1 class="center">Login</h1>
+<%= form_for(@user, {url:sessions_path}) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2 class="center"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul class="center">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="center">
+  <p><div class="field">
+    <div>Username</div>
+    <div><%= f.text_field :email %></div>
+  </div></p>
+  <p><div class="field">
+    <div><%= f.label :password %></div>
+    <div><%= f.password_field :password %></div>
+  </div></p>
+  <div class="actions form_submit">
+    <%= f.submit "Login" %>
+  </div>
+</div>
+<% end %>

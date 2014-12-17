@@ -1,0 +1,300 @@
+// Place all the styles related to the Restaurants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+	font-family: 'Raleway', arial, sans-serif;
+	font-size: 12px;
+	width: 100%;
+	background: image-url("http://alex-abbott.com/monkeypants/images/bg.jpg");
+	background-size: 100%;
+	background-color: #009ee8;
+	padding: 0;
+	margin: 0;
+}
+
+nav {
+	text-align: right;
+	padding: 20px 20px 0 0;
+	font-family: 'Raleway', Arial, sans-serif;
+	color: #fff;
+}
+
+h1 {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-size: 4em;
+	font-weight: bold;
+	color: #fff;
+}
+
+#overall {
+	text-align: center;
+	margin: 0 auto;
+	padding-bottom: 27px;
+}
+
+.new {
+	text-decoration: none;
+	text-align: left;
+	font-family: 'Raleway', Arial, sans-serif;
+	color: #fff;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+.center {
+	text-align: center;
+}
+
+.main_title {
+	padding: 30px 0 20px 0;
+	color: white;
+}
+
+.sub_title {
+	padding: 0;
+	color: #fff;
+	font-family: 'Raleway', Times, serif;
+	padding-bottom: 20px;
+}
+
+.new_form {
+	margin: 0 auto;
+	width: 500px;
+	color: #fff;
+}
+
+.price_label {
+	padding-left: 40px;
+}
+
+.float_right {
+	float: right;
+}
+
+.each-rating {
+	width: 25%;
+	display: inline;
+	float: left;
+	color: #fff;
+	font-family: 'Raleway', Times, serif;
+	text-align: center;
+}
+
+.ratings_holder {
+	width:400px;
+	margin: 0 auto;
+}
+
+.rating_subcontainer {
+	float: right;
+	display: inline;
+	padding-top: 30px;
+}
+
+.rating_container {
+	float: left;
+	width:50%;
+	height:200px;
+}
+
+.recommendation_container {
+	float: left;
+	width: 50%;
+	height: 300px;
+	text-align: left;
+}
+
+.recommendations_header {
+	padding: 40px 0 0 80px;
+}
+
+.link_text {
+	text-decoration: none;
+	color: #00a3f0;
+}
+
+#positiveinfo {
+	position:absolute;
+	top: 30%; 
+	left: 37%;
+	width:300px;
+	height: 60px;
+	background: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	display:none;
+	padding:20px;
+	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
+}
+#competeinfo {
+	position:absolute;
+	top: 30%; 
+	left: 37%;
+	width:300px;
+	height: 60px;
+	background: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	display:none;
+	padding:20px;
+	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
+}
+
+#trafficinfo {
+	position:absolute;
+	top: 30%; 
+	left: 37%;
+	width:300px;
+	height: 60px;
+	background: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	display:none;
+	padding:20px;
+	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
+}
+
+#overallinfo {
+	position:absolute;
+	top: 30%; 
+	left: 37%;
+	width:300px;
+	height: 60px;
+	background: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	display:none;
+	padding:20px;
+	font-family: 'Raleway', arial, sans-serif;
+	z-index: 1;
+}
+
+.normal_font {
+	font-weight: normal;
+	font-size: 3em;
+}
+
+.submit {
+	background-color: #fff;
+	color: #00a3f0;
+	font-family: "Raleway", arial, sans-serif;
+	border: 0;
+	width: 250px;
+	height: 50px;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.submit:hover {
+	color: #011b8c;
+}
+
+#landing_button:hover {
+	color: #011b8c;
+}
+
+#results {
+	text-align: center;
+	font-family: "Raleway", arial, sans-serif;
+	// color: #fff;
+}
+
+#landing_button {
+	font-family: "Raleway", arial, sans-serif;
+	background-color: #fff;
+	color: #00a3f0;
+	width: 250px;
+	height: 50px;
+	text-align: center;
+	font-size: 1.5em;
+	margin: 0 auto;
+	font-weight: bold;
+	line-height: 50px;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.rating {
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+	width: 30px;
+	background-color: #fff;
+	text-align: center;
+	margin: 0 auto;
+	color: green;
+	margin-top: 10px;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
+}
+
+.bar-chart {
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #fff;
+	height: 40px;
+	width: 30px;
+	background-color: #fff;
+	text-align: center;
+	margin: 0 auto;
+	background-color: green;
+	margin-top: 10px;	
+}
+
+.overall-rating {
+	font-size: 3em;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid darkblue;
+	background-color: #fff;
+	width: 60px;
+	height: 40px;
+	line-height: 30px;
+	text-align: center;
+	margin: 0 auto;
+	color: darkblue;
+	font-weight: bold;
+	font-family: "Raleway", arial, sans-serif;
+}
+
+#form_map {
+	display: none;
+}
+
+.sign_up {
+	float: right;
+	color: #fff;
+	display: inline-block;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	text-decoration: none;
+}
+
+#map-canvas { 
+	height: 500px; 
+	margin: 0; 
+	padding: 0;
+}
+
+.white_text {
+	color: #fff;
+	font-family:'Raleway';
+}
+
+.blue_text {
+	color: #011b8c;
+	font-weight: bold;
+}
+
+.divider {
+	color: #011b8c;
+	font-weight: bold;
+}
+
+#factual-data{
+	display: none;
+}

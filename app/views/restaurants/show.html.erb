@@ -1,0 +1,339 @@
+ <!-- google maps api -->
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
+</script>
+
+ <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- heatlayer library -->
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+</script>
+
+ <script type="text/javascript">
+      var heatmap;
+      var heatmapData = [
+  {location: new google.maps.LatLng(34.017862, -118.4892), weight: -0.5},
+  new google.maps.LatLng(34.013706, -118.4953),
+  {location: new google.maps.LatLng(34.015661, -118.4919), weight: 2},
+  {location: new google.maps.LatLng(34.018218, -118.4896), weight: 3},
+  {location: new google.maps.LatLng(34.017084, -118.4936), weight: 2},
+  new google.maps.LatLng(34.015422, -118.4901),
+  {location: new google.maps.LatLng(34.015336, -118.4966), weight: 0.5},
+
+  {location: new google.maps.LatLng(34.017211, -118.4939), weight: 3},
+  {location: new google.maps.LatLng(34.02366, -118.4923), weight: 2},
+  new google.maps.LatLng(34.013761, -118.4949),
+  {location: new google.maps.LatLng(34.024381, -118.4921), weight: 0.5},
+  new google.maps.LatLng(34.013878, -118.49517),
+  {location: new google.maps.LatLng(34.014284, -118.4980), weight: 2},
+  {location: new google.maps.LatLng(34.020093, -118.4974), weight: 3},
+  {location: new google.maps.LatLng(34.02448, -118.4913), weight: 3},
+  {location: new google.maps.LatLng(34.012684, -118.4960), weight: 3},
+  {location: new google.maps.LatLng(34.014861, -118.4932), weight: 3},
+  {location: new google.maps.LatLng(34.014472, -118.4983), weight: 3},
+  {location: new google.maps.LatLng(34.017607, -118.49816), weight: 3},
+  {location: new google.maps.LatLng(34.010373, -118.4933), weight: 3}
+];
+ function initialize() {
+      var map;
+      var elevator;
+      var myOptions = {
+          zoom: 13,
+          center: new google.maps.LatLng(34.0500, -118.2500),
+          mapTypeId: google.maps.MapTypeId.HYBRID,
+          scrollwheel: false
+      };
+
+
+      map = new google.maps.Map($('#map-canvas')[0], myOptions);
+      
+    var pointArray = new google.maps.MVCArray(heatmapData);
+
+      heatmap = new google.maps.visualization.HeatmapLayer({ data: pointArray});
+
+        heatmap.setMap(map);
+
+
+      var addresses = ['<%= @restaurant.location %>'];
+
+      for (var x = 0; x < addresses.length; x++) {
+          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
+              var p = data.results[0].geometry.location
+              var latlng = new google.maps.LatLng(p.lat, p.lng);
+               
+              var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                  icon: '../../assets/marker1.png'
+              });
+              
+              var infowindow = new google.maps.InfoWindow({
+                content: '<%= @restaurant.location %>'
+              });
+              infowindow.open(map, marker);
+        
+              // google.maps.event.addListener(marker, 'click', function() {
+              //   infowindow.open(map,marker);
+              // });
+
+              map.setCenter(latlng);
+
+          });
+      }
+  };
+  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'page:load', initialize);
+  
+  </script>
+
+<!-- <p id="notice"><%= notice %></p>
+ -->
+
+    <div class="sign_up animated fadeIn">
+      
+      <% if current_user %>
+
+
+
+          <span class="white_text"><%= current_user.email %></span> |           <!-- 'Logout' link for full size view -->
+         <span class="white_text">
+            <%= link_to "LOGOUT", sessions_path, method: :delete, :style=>'color:#FFFFFF;' %>
+          </span>
+
+      <% else %>
+
+        <!-- sign up link -->
+        <a href="users/new" class="white_text" style="color: #fff;text-decoration: none;">SIGN UP</a>
+
+        <span class="blue_text">|</span> 
+
+        <!-- login link -->
+        <a href="sessions/new" class="white_text" style="color: #fff;text-decoration: none;">LOGIN</a>
+
+      <% end %>
+    </div>
+
+<a href="/" class="new animated fadeIn" style="color: #fff;">HOME</a>
+
+<h1 class="center main_title animated fadeInDown">PREDICTIVE</h1>
+
+<!-- D3 starts here -->
+
+
+<style type="text/css">
+
+div.bar{ 
+  display: inline-block;
+  width: 20px;
+/*  height: 75px;*/
+  background-color: teal;
+  margin-right: 2px;
+}
+
+body{
+  text-align: center ;
+}
+  </style>
+<body>
+
+<script type="text/javascript">
+
+var w = 500;
+var h = 100;
+var barPadding = 1;
+// var padding = 20;
+
+
+var dataset = [ 25, 7, 5, 22, 11, 8, 25, 14, 23, 19, 14, 11, 22, 23, 11, 13, 12, 17, 18, 10, 5, 18, 25, 9, 5];
+
+// Create scale functions
+// var xScale = d3.scale.linear()
+// .domain([0, d3.max(dataset, function(d){
+//   return d[0]; })])
+// .range([padding, w - padding * 2 ]);
+
+// var yScale = d3.scale.linear()
+// .domain([0, d3.max(dataset, function(d){
+//   return d[1]; })])
+// .range([h - padding, padding]);
+
+// var rScale = d3.scale.linear()
+// .domain([0, d3.max(dataset, function(d){
+//   return d[1]; })])
+// .range([2, 5]);
+
+// Define the x-axis
+
+// var xAxis = d3.svg.axis()
+// .scale(xScale)
+// .orient("bottom");
+
+
+
+// Create SVG Element 
+var svg = d3.select("body")
+.append("svg")
+.attr("width", w)
+.attr("height", h);
+
+svg.selectAll("rect")
+.data(dataset)
+.enter()
+.append("rect")
+.attr("x", function(d, i){
+  return i * (w / dataset.length);
+})
+.attr("y", function(d){
+  return h - (d * 4);
+})
+.attr("width", w / dataset.length - barPadding)
+.attr("height", function(d){
+  return d * 4;
+})
+.attr("fill", function(d){
+  return "rgb(" + (d * 10) + ", 0, 0)";
+
+});
+
+// Create x-axis
+
+// svg.append("g")
+// .call(xAxis);
+
+// Create labels
+
+svg.selectAll("text")
+.data(dataset)
+.enter()
+.append("text")
+.text(function(d){
+  return d;
+})
+.attr("x", function(d, i){
+  return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+})
+.attr("y", function(d){
+  return h - (d * 4) + 14;
+})
+.attr("font-family", "sans-serif")
+.attr("font-size", "11px")
+.attr("fill", "white")
+.attr("text-anchor", "middle");
+
+
+// d3.select("body")
+d3.selectAll("rect")
+.data(dataset)
+.attr("height", "0%")
+.transition()
+.duration(2000)
+.attr("height", "100%");
+
+</script>
+
+
+
+</body>
+
+
+<!-- D3 ends here -->
+
+<div id="results">
+
+  <div class="white_text">
+
+  <h2>PREDICTION:</h2>
+
+    <p class="rating"></p>
+
+    <h2>RECOMMENDATIONS:</h2>
+
+
+<!--     <span class="blue_text">LOCATION:</span>
+    <%= @restaurant.location %><br> 
+
+    <span class="blue_text">CATEGORY:</span>
+    <%= @restaurant.category %><br> 
+
+    <span class="blue_text">PRICE:</span>
+    <%= @restaurant.price %> -->
+
+  </div>
+
+
+  <br><br><div id="map-canvas"></div>
+
+</div>
+
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', restaurants_path %>
+
+<script>
+  /*Adjustable Variables*/
+var distanceCoefficients = [];        //Array of distance coefficients
+var categoryPriceCompetition = [0,9,2,0]; //Competition with the same category and price
+var priceCompetition = [0,6,1,0];     //Competition with the same price range but different category
+var categoryCompetition = [0,0,0,0];    //Competition with the same category but different price range
+var complementaryEstabishment = [0,-3,1,0]; //Establishments with a different category and price rage
+distanceCoefficients.push(
+  categoryPriceCompetition,
+  priceCompetition,
+  categoryCompetition,
+  complementaryEstabishment);
+
+/*Program Variables*/
+var output = 0;
+
+/*Nameing Variables Do Not Change*/
+var samePriceAndCategory = 0;
+var samePriceOnly = 1;
+var sameCategoryOnly = 2;
+var differentPriceAndCategory = 3;
+var lati = 0;
+var lngi = 1;
+var price = 2;
+var cat = 3;
+
+/*Temporary*/
+var restaurant = 0;
+var coffeeShop = 1;
+var est = [];
+est.push([34.025787,-118.483277,2,0]);
+est.push([34.023690,-118.492328,2,0]);
+est.push([34.028597,-118.486277,2,0]);
+est.push([34.029111,-118.486358,1,0]);
+est.push([34.020216,-118.496283,2,0]);
+est.push([34.023857,-118.492100,2,0]);
+est.push([34.016630,-118.491290,2,0]);
+est.push([34.016828,-118.494929,1,1]);
+est.push([34.023823,-118.483193,1,1]);
+est.push([34.032964,-118.480940,1,1]);
+
+rate = function(lat,lng,cost,category){
+  var latitude = lat;
+  var longitude = lng;
+  var rating = 0;
+  var distance = 0;
+  var competitionType = 0;
+  for(var i = 0; i < est.length; i++){
+    distance = Math.sqrt(Math.pow(est[i][lati]-latitude,2)+Math.pow(est[i][lngi]-longitude,2));
+    if(est[i][price] == cost && est[i][cat] == category){
+      competitionType = samePriceAndCategory;
+    }else if(est[i][price] == cost){
+      competitionType = samePriceOnly;
+    }else if(est[i][cat] == category){
+      competitionType = sameCategoryOnly;
+    }else{
+      competitionType = differentPriceAndCategory;
+    }
+    rating -= distanceCoefficients[competitionType][0]
+    rating -= distanceCoefficients[competitionType][1]*Math.pow(distance,(-1));
+    rating -= distanceCoefficients[competitionType][2]*Math.pow(distance,(-2));
+    rating -= distanceCoefficients[competitionType][3]*Math.pow(distance,(-3));
+  }
+  return rating;
+};
+output = (rate(34.019021,-118.496379,1,coffeeShop));
+document.getElementsByClassName('rating')[0].innerHTML = output;
+</script>

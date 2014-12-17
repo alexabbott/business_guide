@@ -1,0 +1,174 @@
+<!-- google maps api -->
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvl41fmjeaBBlwgySDnKX7xPExYkID5ko">
+</script>
+
+ <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+</script>
+
+ <script type="text/javascript">
+
+var data = document.getElementById('factual-data').innerHTML.toString().split('|');
+ 
+console.log(data[1]);
+console.log(data[2]);
+
+var heatmap;
+var heatmapData = [];
+var cost = localStorage.cost;
+var category = localStorage.category;
+var compType = [0,1];
+var distance = [];
+var latitude = localStorage.latitude;
+var longitude = localStorage.longitude;
+var latitudeN = parseFloat(latitude)+0.002;
+var latitudeS = parseFloat(latitude)-0.002;
+var longitudeE = parseFloat(longitude)+0.002;
+var longitudeW = parseFloat(longitude)-0.002;
+var costPossibilities = [];
+var positiveRating = [];
+var negativeRating = [];
+var distanceSize = 9;
+var costRange = 4;
+var categorySize = 10;
+
+ for(var i = 0; i < data.length-6; i+=6){
+  compType[0] = Math.abs(cost.length-data[i+3][9])
+  distance[0] = Math.sqrt(Math.pow(data[i+1]-latitude,2)+Math.pow(data[i+2]-longitude,2))*500;
+  distance[1] = Math.sqrt(Math.pow(data[i+1]-latitudeN,2)+Math.pow(data[i+2]-longitude,2))*500;
+  distance[2] = Math.sqrt(Math.pow(data[i+1]-latitudeN,2)+Math.pow(data[i+2]-longitudeE,2))*500;
+  distance[3] = Math.sqrt(Math.pow(data[i+1]-latitude,2)+Math.pow(data[i+2]-longitudeE,2))*500;
+  distance[4] = Math.sqrt(Math.pow(data[i+1]-latitudeS,2)+Math.pow(data[i+2]-longitudeE,2))*500;
+  distance[5] = Math.sqrt(Math.pow(data[i+1]-latitudeS,2)+Math.pow(data[i+2]-longitude,2))*500;
+  distance[6] = Math.sqrt(Math.pow(data[i+1]-latitudeS,2)+Math.pow(data[i+2]-longitudeW,2))*500;
+  distance[7] = Math.sqrt(Math.pow(data[i+1]-latitude,2)+Math.pow(data[i+2]-longitudeW,2))*500;
+  distance[8] = Math.sqrt(Math.pow(data[i+1]-latitudeN,2)+Math.pow(data[i+2]-longitudeW,2))*500;
+  compType[0] = Math.abs(cost.length-data[i+3][9]);
+  if(data[i+5].toString().toLowerCase().indexOf(category.toString().toLowerCase()) >= 0){
+    compType[1] = 0;
+  }
+    for(var j = 0; j < distance.length; j++){
+      if(compType[0] == 0 && compType[1] == 0){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 3});
+      }else if(compType[0] == 0 && compType[1] == 1){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 2});
+      }else if(compType[0] == 1 && compType[1] == 0){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 1}); 
+      }else if(compType[0] == 1 && compType[1] == 1){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 0});
+      }else{
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 0.5});
+      }
+    }
+    for(var j = distance.length; j < distance.length+costPossibilities.length; j++){
+      compType[0] = Math.abs(costPossibilities[j-distance.length]-data[i+3][9]);
+      if(compType[0] == 0 && compType[1] == 0){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 3});
+      }else if(compType[0] == 0 && compType[1] == 1){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 2});
+      }else if(compType[0] == 1 && compType[1] == 0){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 1}); 
+      }else if(compType[0] == 1 && compType[1] == 1){
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 0});
+      }else{
+        heatmapData.push({location: new google.maps.LatLng(data[i+1], data[i+2]), weight: 0.5});
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+//  var heatmap;
+//       var heatmapData = [
+//   {location: new google.maps.LatLng(34.017862, -118.4892), weight: -0.5},
+//   new google.maps.LatLng(34.013706, -118.4953),
+//   {location: new google.maps.LatLng(34.015661, -118.4919), weight: 2},
+//   {location: new google.maps.LatLng(34.018218, -118.4896), weight: 3},
+//   {location: new google.maps.LatLng(34.017084, -118.4936), weight: 2},
+//   new google.maps.LatLng(34.015422, -118.4901),
+//   {location: new google.maps.LatLng(34.015336, -118.4966), weight: 0.5},
+
+//   {location: new google.maps.LatLng(34.017211, -118.4939), weight: 3},
+//   {location: new google.maps.LatLng(34.02366, -118.4923), weight: 2},
+//   new google.maps.LatLng(34.013761, -118.4949),
+//   {location: new google.maps.LatLng(34.024381, -118.4921), weight: 0.5},
+//   new google.maps.LatLng(34.013878, -118.49517),
+//   {location: new google.maps.LatLng(34.014284, -118.4980), weight: 2},
+//   {location: new google.maps.LatLng(34.020093, -118.4974), weight: 3},
+//   {location: new google.maps.LatLng(34.02448, -118.4913), weight: 3},
+//   {location: new google.maps.LatLng(34.012684, -118.4960), weight: 3},
+//   {location: new google.maps.LatLng(34.014861, -118.4932), weight: 3},
+//   {location: new google.maps.LatLng(34.014472, -118.4983), weight: 3},
+//   {location: new google.maps.LatLng(34.017607, -118.49816), weight: 3},
+//   {location: new google.maps.LatLng(34.010373, -118.4933), weight: 3}
+// ]; 
+
+
+ function initialize() {
+      var map;
+      var elevator;
+      var myOptions = {
+          zoom: 15,
+          center: new google.maps.LatLng(34.0500, -118.2500),
+          mapTypeId: google.maps.MapTypeId.TERRAIN,
+          scrollwheel: false
+      };
+      map = new google.maps.Map($('#map-canvas')[0], myOptions);
+
+      var pointArray = new google.maps.MVCArray(heatmapData);
+
+      heatmap = new google.maps.visualization.HeatmapLayer({ data: pointArray});
+
+        heatmap.setMap(map);
+
+      var addresses = ['<%= @restaurant.location %>'];
+
+      for (var x = 0; x < addresses.length; x++) {
+          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
+              var p = data.results[0].geometry.location
+              var latlng = new google.maps.LatLng(p.lat, p.lng);
+               
+              var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                  icon: 'http://i.stack.imgur.com/uFZxX.png'
+              });
+              
+              var infowindow = new google.maps.InfoWindow({
+                content: '<%= @restaurant.location %>'
+              });
+              infowindow.open(map, marker);
+        
+              // google.maps.event.addListener(marker, 'click', function() {
+              //   infowindow.open(map,marker);
+              // });
+
+              map.setCenter(latlng);
+
+          });
+      }
+  };
+  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'page:load', initialize);
+  
+  </script>
